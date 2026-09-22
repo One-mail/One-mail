@@ -8,4 +8,12 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/User'
+export type * from './models/Account'
+export type * from './models/Thread'
+export type * from './models/Email'
+export type * from './models/AIAnalysis'
+export type * from './models/Task'
+export type * from './models/Reminder'
+export type * from './models/SyncState'
 export type * from './commonInputTypes'

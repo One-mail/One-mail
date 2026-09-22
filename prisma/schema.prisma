@@ -6,3 +6,153 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id            String     @id @default(cuid())
+  email         String     @unique
+  name          String?
+  image         String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  accounts      Account[]
+  threads       Thread[]
+  emails        Email[]
+  tasks         Task[]
+  reminders     Reminder[]
+  syncState     SyncState?
+}
+
+model Account {
+  id                String    @id @default(cuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  provider          String
+  providerAccountId String
+  accessToken       String?   @db.Text
+  refreshToken      String?   @db.Text
+  expiresAt         Int?
+  tokenType         String?
+  scope             String?
+  idToken           String?   @db.Text
+
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Thread {
+  id             String    @id @default(cuid())
+  userId         String
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  gmailThreadId  String    @unique
+  subject        String?
+  snippet        String?   @db.Text
+  lastMessageAt  DateTime?
+
+  emails         Email[]
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+model Email {
+  id              String       @id @default(cuid())
+  userId          String
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  threadId        String?
+  thread          Thread?      @relation(fields: [threadId], references: [id], onDelete: SetNull)
+
+  gmailMessageId  String       @unique
+  from            String
+  to              String?
+  subject         String
+  snippet         String?      @db.Text
+  body            String?      @db.Text
+  receivedAt      DateTime
+  isRead          Boolean      @default(false)
+
+  analysis        AIAnalysis?
+  tasks           Task[]
+
+  createdAt       DateTime     @default(now())
+
+  @@index([userId])
+  @@index([threadId])
+  @@index([receivedAt])
+}
+
+model AIAnalysis {
+  id            String    @id @default(cuid())
+  emailId       String    @unique
+  email         Email     @relation(fields: [emailId], references: [id], onDelete: Cascade)
+
+  category      String?
+  priority      String?
+  isActionable  Boolean   @default(false)
+  summary       String?   @db.Text
+  deadline      DateTime?
+  entities      Json?
+  model         String?
+
+  processedAt   DateTime  @default(now())
+}
+
+model Task {
+  id            String     @id @default(cuid())
+  userId        String
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emailId       String?
+  email         Email?     @relation(fields: [emailId], references: [id], onDelete: SetNull)
+
+  title         String
+  description   String?    @db.Text
+  deadline      DateTime?
+  status        String     @default("pending")
+
+  reminders     Reminder[]
+
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([deadline])
+}
+
+model Reminder {
+  id          String    @id @default(cuid())
+  taskId      String
+  task        Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  remindAt    DateTime
+  channel     String    @default("telegram")
+  sent        Boolean   @default(false)
+  sentAt      DateTime?
+
+  createdAt   DateTime  @default(now())
+
+  @@index([userId])
+  @@index([remindAt])
+}
+
+model SyncState {
+  id            String    @id @default(cuid())
+  userId        String    @unique
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  lastHistoryId String?
+  lastSyncedAt  DateTime?
+  status        String    @default("idle")
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
