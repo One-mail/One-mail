@@ -51,7 +51,14 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-
+  User: 'User',
+  Account: 'Account',
+  Thread: 'Thread',
+  Email: 'Email',
+  AIAnalysis: 'AIAnalysis',
+  Task: 'Task',
+  Reminder: 'Reminder',
+  SyncState: 'SyncState'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -68,4 +75,165 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const UserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  name: 'name',
+  image: 'image',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const AccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  provider: 'provider',
+  providerAccountId: 'providerAccountId',
+  accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
+  expiresAt: 'expiresAt',
+  tokenType: 'tokenType',
+  scope: 'scope',
+  idToken: 'idToken',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
+
+
+export const ThreadScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  gmailThreadId: 'gmailThreadId',
+  subject: 'subject',
+  snippet: 'snippet',
+  lastMessageAt: 'lastMessageAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ThreadScalarFieldEnum = (typeof ThreadScalarFieldEnum)[keyof typeof ThreadScalarFieldEnum]
+
+
+export const EmailScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  threadId: 'threadId',
+  gmailMessageId: 'gmailMessageId',
+  from: 'from',
+  to: 'to',
+  subject: 'subject',
+  snippet: 'snippet',
+  body: 'body',
+  receivedAt: 'receivedAt',
+  isRead: 'isRead',
+  createdAt: 'createdAt'
+} as const
+
+export type EmailScalarFieldEnum = (typeof EmailScalarFieldEnum)[keyof typeof EmailScalarFieldEnum]
+
+
+export const AIAnalysisScalarFieldEnum = {
+  id: 'id',
+  emailId: 'emailId',
+  category: 'category',
+  priority: 'priority',
+  isActionable: 'isActionable',
+  summary: 'summary',
+  deadline: 'deadline',
+  entities: 'entities',
+  model: 'model',
+  processedAt: 'processedAt'
+} as const
+
+export type AIAnalysisScalarFieldEnum = (typeof AIAnalysisScalarFieldEnum)[keyof typeof AIAnalysisScalarFieldEnum]
+
+
+export const TaskScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  emailId: 'emailId',
+  title: 'title',
+  description: 'description',
+  deadline: 'deadline',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+
+
+export const ReminderScalarFieldEnum = {
+  id: 'id',
+  taskId: 'taskId',
+  userId: 'userId',
+  remindAt: 'remindAt',
+  channel: 'channel',
+  sent: 'sent',
+  sentAt: 'sentAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ReminderScalarFieldEnum = (typeof ReminderScalarFieldEnum)[keyof typeof ReminderScalarFieldEnum]
+
+
+export const SyncStateScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  lastHistoryId: 'lastHistoryId',
+  lastSyncedAt: 'lastSyncedAt',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SyncStateScalarFieldEnum = (typeof SyncStateScalarFieldEnum)[keyof typeof SyncStateScalarFieldEnum]
+
+
+export const SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+} as const
+
+export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+} as const
+
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
