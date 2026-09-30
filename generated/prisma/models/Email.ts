@@ -29,14 +29,15 @@ export type EmailMinAggregateOutputType = {
   userId: string | null
   threadId: string | null
   gmailMessageId: string | null
-  from: string | null
-  to: string | null
+  gmailThreadId: string | null
+  sender: string | null
   subject: string | null
   snippet: string | null
-  body: string | null
+  bodyText: string | null
+  bodyHtml: string | null
   receivedAt: Date | null
-  isRead: boolean | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type EmailMaxAggregateOutputType = {
@@ -44,14 +45,15 @@ export type EmailMaxAggregateOutputType = {
   userId: string | null
   threadId: string | null
   gmailMessageId: string | null
-  from: string | null
-  to: string | null
+  gmailThreadId: string | null
+  sender: string | null
   subject: string | null
   snippet: string | null
-  body: string | null
+  bodyText: string | null
+  bodyHtml: string | null
   receivedAt: Date | null
-  isRead: boolean | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type EmailCountAggregateOutputType = {
@@ -59,14 +61,18 @@ export type EmailCountAggregateOutputType = {
   userId: number
   threadId: number
   gmailMessageId: number
-  from: number
-  to: number
+  gmailThreadId: number
+  sender: number
+  recipients: number
+  cc: number
+  bcc: number
   subject: number
   snippet: number
-  body: number
+  bodyText: number
+  bodyHtml: number
   receivedAt: number
-  isRead: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -76,14 +82,15 @@ export type EmailMinAggregateInputType = {
   userId?: true
   threadId?: true
   gmailMessageId?: true
-  from?: true
-  to?: true
+  gmailThreadId?: true
+  sender?: true
   subject?: true
   snippet?: true
-  body?: true
+  bodyText?: true
+  bodyHtml?: true
   receivedAt?: true
-  isRead?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type EmailMaxAggregateInputType = {
@@ -91,14 +98,15 @@ export type EmailMaxAggregateInputType = {
   userId?: true
   threadId?: true
   gmailMessageId?: true
-  from?: true
-  to?: true
+  gmailThreadId?: true
+  sender?: true
   subject?: true
   snippet?: true
-  body?: true
+  bodyText?: true
+  bodyHtml?: true
   receivedAt?: true
-  isRead?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type EmailCountAggregateInputType = {
@@ -106,14 +114,18 @@ export type EmailCountAggregateInputType = {
   userId?: true
   threadId?: true
   gmailMessageId?: true
-  from?: true
-  to?: true
+  gmailThreadId?: true
+  sender?: true
+  recipients?: true
+  cc?: true
+  bcc?: true
   subject?: true
   snippet?: true
-  body?: true
+  bodyText?: true
+  bodyHtml?: true
   receivedAt?: true
-  isRead?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -192,16 +204,20 @@ export type EmailGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type EmailGroupByOutputType = {
   id: string
   userId: string
-  threadId: string | null
+  threadId: string
   gmailMessageId: string
-  from: string
-  to: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients: runtime.JsonValue | null
+  cc: runtime.JsonValue | null
+  bcc: runtime.JsonValue | null
+  subject: string | null
   snippet: string | null
-  body: string | null
+  bodyText: string | null
+  bodyHtml: string | null
   receivedAt: Date
-  isRead: boolean
   createdAt: Date
+  updatedAt: Date
   _count: EmailCountAggregateOutputType | null
   _min: EmailMinAggregateOutputType | null
   _max: EmailMaxAggregateOutputType | null
@@ -228,76 +244,96 @@ export type EmailWhereInput = {
   NOT?: Prisma.EmailWhereInput | Prisma.EmailWhereInput[]
   id?: Prisma.StringFilter<"Email"> | string
   userId?: Prisma.StringFilter<"Email"> | string
-  threadId?: Prisma.StringNullableFilter<"Email"> | string | null
+  threadId?: Prisma.StringFilter<"Email"> | string
   gmailMessageId?: Prisma.StringFilter<"Email"> | string
-  from?: Prisma.StringFilter<"Email"> | string
-  to?: Prisma.StringNullableFilter<"Email"> | string | null
-  subject?: Prisma.StringFilter<"Email"> | string
+  gmailThreadId?: Prisma.StringFilter<"Email"> | string
+  sender?: Prisma.StringFilter<"Email"> | string
+  recipients?: Prisma.JsonNullableFilter<"Email">
+  cc?: Prisma.JsonNullableFilter<"Email">
+  bcc?: Prisma.JsonNullableFilter<"Email">
+  subject?: Prisma.StringNullableFilter<"Email"> | string | null
   snippet?: Prisma.StringNullableFilter<"Email"> | string | null
-  body?: Prisma.StringNullableFilter<"Email"> | string | null
+  bodyText?: Prisma.StringNullableFilter<"Email"> | string | null
+  bodyHtml?: Prisma.StringNullableFilter<"Email"> | string | null
   receivedAt?: Prisma.DateTimeFilter<"Email"> | Date | string
-  isRead?: Prisma.BoolFilter<"Email"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Email"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Email"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  thread?: Prisma.XOR<Prisma.ThreadNullableScalarRelationFilter, Prisma.ThreadWhereInput> | null
+  thread?: Prisma.XOR<Prisma.ThreadScalarRelationFilter, Prisma.ThreadWhereInput>
   analysis?: Prisma.XOR<Prisma.AIAnalysisNullableScalarRelationFilter, Prisma.AIAnalysisWhereInput> | null
   tasks?: Prisma.TaskListRelationFilter
+  reminders?: Prisma.ReminderListRelationFilter
 }
 
 export type EmailOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  threadId?: Prisma.SortOrderInput | Prisma.SortOrder
+  threadId?: Prisma.SortOrder
   gmailMessageId?: Prisma.SortOrder
-  from?: Prisma.SortOrder
-  to?: Prisma.SortOrderInput | Prisma.SortOrder
-  subject?: Prisma.SortOrder
+  gmailThreadId?: Prisma.SortOrder
+  sender?: Prisma.SortOrder
+  recipients?: Prisma.SortOrderInput | Prisma.SortOrder
+  cc?: Prisma.SortOrderInput | Prisma.SortOrder
+  bcc?: Prisma.SortOrderInput | Prisma.SortOrder
+  subject?: Prisma.SortOrderInput | Prisma.SortOrder
   snippet?: Prisma.SortOrderInput | Prisma.SortOrder
-  body?: Prisma.SortOrderInput | Prisma.SortOrder
+  bodyText?: Prisma.SortOrderInput | Prisma.SortOrder
+  bodyHtml?: Prisma.SortOrderInput | Prisma.SortOrder
   receivedAt?: Prisma.SortOrder
-  isRead?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   thread?: Prisma.ThreadOrderByWithRelationInput
   analysis?: Prisma.AIAnalysisOrderByWithRelationInput
   tasks?: Prisma.TaskOrderByRelationAggregateInput
+  reminders?: Prisma.ReminderOrderByRelationAggregateInput
 }
 
 export type EmailWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  gmailMessageId?: string
+  userId_gmailMessageId?: Prisma.EmailUserIdGmailMessageIdCompoundUniqueInput
   AND?: Prisma.EmailWhereInput | Prisma.EmailWhereInput[]
   OR?: Prisma.EmailWhereInput[]
   NOT?: Prisma.EmailWhereInput | Prisma.EmailWhereInput[]
   userId?: Prisma.StringFilter<"Email"> | string
-  threadId?: Prisma.StringNullableFilter<"Email"> | string | null
-  from?: Prisma.StringFilter<"Email"> | string
-  to?: Prisma.StringNullableFilter<"Email"> | string | null
-  subject?: Prisma.StringFilter<"Email"> | string
+  threadId?: Prisma.StringFilter<"Email"> | string
+  gmailMessageId?: Prisma.StringFilter<"Email"> | string
+  gmailThreadId?: Prisma.StringFilter<"Email"> | string
+  sender?: Prisma.StringFilter<"Email"> | string
+  recipients?: Prisma.JsonNullableFilter<"Email">
+  cc?: Prisma.JsonNullableFilter<"Email">
+  bcc?: Prisma.JsonNullableFilter<"Email">
+  subject?: Prisma.StringNullableFilter<"Email"> | string | null
   snippet?: Prisma.StringNullableFilter<"Email"> | string | null
-  body?: Prisma.StringNullableFilter<"Email"> | string | null
+  bodyText?: Prisma.StringNullableFilter<"Email"> | string | null
+  bodyHtml?: Prisma.StringNullableFilter<"Email"> | string | null
   receivedAt?: Prisma.DateTimeFilter<"Email"> | Date | string
-  isRead?: Prisma.BoolFilter<"Email"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Email"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Email"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  thread?: Prisma.XOR<Prisma.ThreadNullableScalarRelationFilter, Prisma.ThreadWhereInput> | null
+  thread?: Prisma.XOR<Prisma.ThreadScalarRelationFilter, Prisma.ThreadWhereInput>
   analysis?: Prisma.XOR<Prisma.AIAnalysisNullableScalarRelationFilter, Prisma.AIAnalysisWhereInput> | null
   tasks?: Prisma.TaskListRelationFilter
-}, "id" | "gmailMessageId">
+  reminders?: Prisma.ReminderListRelationFilter
+}, "id" | "userId_gmailMessageId">
 
 export type EmailOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  threadId?: Prisma.SortOrderInput | Prisma.SortOrder
+  threadId?: Prisma.SortOrder
   gmailMessageId?: Prisma.SortOrder
-  from?: Prisma.SortOrder
-  to?: Prisma.SortOrderInput | Prisma.SortOrder
-  subject?: Prisma.SortOrder
+  gmailThreadId?: Prisma.SortOrder
+  sender?: Prisma.SortOrder
+  recipients?: Prisma.SortOrderInput | Prisma.SortOrder
+  cc?: Prisma.SortOrderInput | Prisma.SortOrder
+  bcc?: Prisma.SortOrderInput | Prisma.SortOrder
+  subject?: Prisma.SortOrderInput | Prisma.SortOrder
   snippet?: Prisma.SortOrderInput | Prisma.SortOrder
-  body?: Prisma.SortOrderInput | Prisma.SortOrder
+  bodyText?: Prisma.SortOrderInput | Prisma.SortOrder
+  bodyHtml?: Prisma.SortOrderInput | Prisma.SortOrder
   receivedAt?: Prisma.SortOrder
-  isRead?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.EmailCountOrderByAggregateInput
   _max?: Prisma.EmailMaxOrderByAggregateInput
   _min?: Prisma.EmailMinOrderByAggregateInput
@@ -309,127 +345,163 @@ export type EmailScalarWhereWithAggregatesInput = {
   NOT?: Prisma.EmailScalarWhereWithAggregatesInput | Prisma.EmailScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Email"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Email"> | string
-  threadId?: Prisma.StringNullableWithAggregatesFilter<"Email"> | string | null
+  threadId?: Prisma.StringWithAggregatesFilter<"Email"> | string
   gmailMessageId?: Prisma.StringWithAggregatesFilter<"Email"> | string
-  from?: Prisma.StringWithAggregatesFilter<"Email"> | string
-  to?: Prisma.StringNullableWithAggregatesFilter<"Email"> | string | null
-  subject?: Prisma.StringWithAggregatesFilter<"Email"> | string
+  gmailThreadId?: Prisma.StringWithAggregatesFilter<"Email"> | string
+  sender?: Prisma.StringWithAggregatesFilter<"Email"> | string
+  recipients?: Prisma.JsonNullableWithAggregatesFilter<"Email">
+  cc?: Prisma.JsonNullableWithAggregatesFilter<"Email">
+  bcc?: Prisma.JsonNullableWithAggregatesFilter<"Email">
+  subject?: Prisma.StringNullableWithAggregatesFilter<"Email"> | string | null
   snippet?: Prisma.StringNullableWithAggregatesFilter<"Email"> | string | null
-  body?: Prisma.StringNullableWithAggregatesFilter<"Email"> | string | null
+  bodyText?: Prisma.StringNullableWithAggregatesFilter<"Email"> | string | null
+  bodyHtml?: Prisma.StringNullableWithAggregatesFilter<"Email"> | string | null
   receivedAt?: Prisma.DateTimeWithAggregatesFilter<"Email"> | Date | string
-  isRead?: Prisma.BoolWithAggregatesFilter<"Email"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Email"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Email"> | Date | string
 }
 
 export type EmailCreateInput = {
   id?: string
   gmailMessageId: string
-  from: string
-  to?: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
   snippet?: string | null
-  body?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
   receivedAt: Date | string
-  isRead?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutEmailsInput
-  thread?: Prisma.ThreadCreateNestedOneWithoutEmailsInput
+  thread: Prisma.ThreadCreateNestedOneWithoutEmailsInput
   analysis?: Prisma.AIAnalysisCreateNestedOneWithoutEmailInput
   tasks?: Prisma.TaskCreateNestedManyWithoutEmailInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutEmailInput
 }
 
 export type EmailUncheckedCreateInput = {
   id?: string
   userId: string
-  threadId?: string | null
+  threadId: string
   gmailMessageId: string
-  from: string
-  to?: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
   snippet?: string | null
-  body?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
   receivedAt: Date | string
-  isRead?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   analysis?: Prisma.AIAnalysisUncheckedCreateNestedOneWithoutEmailInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutEmailInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutEmailInput
 }
 
 export type EmailUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutEmailsNestedInput
-  thread?: Prisma.ThreadUpdateOneWithoutEmailsNestedInput
+  thread?: Prisma.ThreadUpdateOneRequiredWithoutEmailsNestedInput
   analysis?: Prisma.AIAnalysisUpdateOneWithoutEmailNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutEmailNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutEmailNestedInput
 }
 
 export type EmailUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  threadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadId?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   analysis?: Prisma.AIAnalysisUncheckedUpdateOneWithoutEmailNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutEmailNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutEmailNestedInput
 }
 
 export type EmailCreateManyInput = {
   id?: string
   userId: string
-  threadId?: string | null
+  threadId: string
   gmailMessageId: string
-  from: string
-  to?: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
   snippet?: string | null
-  body?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
   receivedAt: Date | string
-  isRead?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type EmailUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type EmailUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  threadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadId?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type EmailListRelationFilter = {
@@ -442,19 +514,28 @@ export type EmailOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type EmailUserIdGmailMessageIdCompoundUniqueInput = {
+  userId: string
+  gmailMessageId: string
+}
+
 export type EmailCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   threadId?: Prisma.SortOrder
   gmailMessageId?: Prisma.SortOrder
-  from?: Prisma.SortOrder
-  to?: Prisma.SortOrder
+  gmailThreadId?: Prisma.SortOrder
+  sender?: Prisma.SortOrder
+  recipients?: Prisma.SortOrder
+  cc?: Prisma.SortOrder
+  bcc?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   snippet?: Prisma.SortOrder
-  body?: Prisma.SortOrder
+  bodyText?: Prisma.SortOrder
+  bodyHtml?: Prisma.SortOrder
   receivedAt?: Prisma.SortOrder
-  isRead?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type EmailMaxOrderByAggregateInput = {
@@ -462,14 +543,15 @@ export type EmailMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   threadId?: Prisma.SortOrder
   gmailMessageId?: Prisma.SortOrder
-  from?: Prisma.SortOrder
-  to?: Prisma.SortOrder
+  gmailThreadId?: Prisma.SortOrder
+  sender?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   snippet?: Prisma.SortOrder
-  body?: Prisma.SortOrder
+  bodyText?: Prisma.SortOrder
+  bodyHtml?: Prisma.SortOrder
   receivedAt?: Prisma.SortOrder
-  isRead?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type EmailMinOrderByAggregateInput = {
@@ -477,14 +559,15 @@ export type EmailMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   threadId?: Prisma.SortOrder
   gmailMessageId?: Prisma.SortOrder
-  from?: Prisma.SortOrder
-  to?: Prisma.SortOrder
+  gmailThreadId?: Prisma.SortOrder
+  sender?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   snippet?: Prisma.SortOrder
-  body?: Prisma.SortOrder
+  bodyText?: Prisma.SortOrder
+  bodyHtml?: Prisma.SortOrder
   receivedAt?: Prisma.SortOrder
-  isRead?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type EmailScalarRelationFilter = {
@@ -581,10 +664,6 @@ export type EmailUncheckedUpdateManyWithoutThreadNestedInput = {
   deleteMany?: Prisma.EmailScalarWhereInput | Prisma.EmailScalarWhereInput[]
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type EmailCreateNestedOneWithoutAnalysisInput = {
   create?: Prisma.XOR<Prisma.EmailCreateWithoutAnalysisInput, Prisma.EmailUncheckedCreateWithoutAnalysisInput>
   connectOrCreate?: Prisma.EmailCreateOrConnectWithoutAnalysisInput
@@ -615,36 +694,62 @@ export type EmailUpdateOneWithoutTasksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EmailUpdateToOneWithWhereWithoutTasksInput, Prisma.EmailUpdateWithoutTasksInput>, Prisma.EmailUncheckedUpdateWithoutTasksInput>
 }
 
+export type EmailCreateNestedOneWithoutRemindersInput = {
+  create?: Prisma.XOR<Prisma.EmailCreateWithoutRemindersInput, Prisma.EmailUncheckedCreateWithoutRemindersInput>
+  connectOrCreate?: Prisma.EmailCreateOrConnectWithoutRemindersInput
+  connect?: Prisma.EmailWhereUniqueInput
+}
+
+export type EmailUpdateOneWithoutRemindersNestedInput = {
+  create?: Prisma.XOR<Prisma.EmailCreateWithoutRemindersInput, Prisma.EmailUncheckedCreateWithoutRemindersInput>
+  connectOrCreate?: Prisma.EmailCreateOrConnectWithoutRemindersInput
+  upsert?: Prisma.EmailUpsertWithoutRemindersInput
+  disconnect?: Prisma.EmailWhereInput | boolean
+  delete?: Prisma.EmailWhereInput | boolean
+  connect?: Prisma.EmailWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmailUpdateToOneWithWhereWithoutRemindersInput, Prisma.EmailUpdateWithoutRemindersInput>, Prisma.EmailUncheckedUpdateWithoutRemindersInput>
+}
+
 export type EmailCreateWithoutUserInput = {
   id?: string
   gmailMessageId: string
-  from: string
-  to?: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
   snippet?: string | null
-  body?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
   receivedAt: Date | string
-  isRead?: boolean
   createdAt?: Date | string
-  thread?: Prisma.ThreadCreateNestedOneWithoutEmailsInput
+  updatedAt?: Date | string
+  thread: Prisma.ThreadCreateNestedOneWithoutEmailsInput
   analysis?: Prisma.AIAnalysisCreateNestedOneWithoutEmailInput
   tasks?: Prisma.TaskCreateNestedManyWithoutEmailInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutEmailInput
 }
 
 export type EmailUncheckedCreateWithoutUserInput = {
   id?: string
-  threadId?: string | null
+  threadId: string
   gmailMessageId: string
-  from: string
-  to?: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
   snippet?: string | null
-  body?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
   receivedAt: Date | string
-  isRead?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   analysis?: Prisma.AIAnalysisUncheckedCreateNestedOneWithoutEmailInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutEmailInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutEmailInput
 }
 
 export type EmailCreateOrConnectWithoutUserInput = {
@@ -679,48 +784,62 @@ export type EmailScalarWhereInput = {
   NOT?: Prisma.EmailScalarWhereInput | Prisma.EmailScalarWhereInput[]
   id?: Prisma.StringFilter<"Email"> | string
   userId?: Prisma.StringFilter<"Email"> | string
-  threadId?: Prisma.StringNullableFilter<"Email"> | string | null
+  threadId?: Prisma.StringFilter<"Email"> | string
   gmailMessageId?: Prisma.StringFilter<"Email"> | string
-  from?: Prisma.StringFilter<"Email"> | string
-  to?: Prisma.StringNullableFilter<"Email"> | string | null
-  subject?: Prisma.StringFilter<"Email"> | string
+  gmailThreadId?: Prisma.StringFilter<"Email"> | string
+  sender?: Prisma.StringFilter<"Email"> | string
+  recipients?: Prisma.JsonNullableFilter<"Email">
+  cc?: Prisma.JsonNullableFilter<"Email">
+  bcc?: Prisma.JsonNullableFilter<"Email">
+  subject?: Prisma.StringNullableFilter<"Email"> | string | null
   snippet?: Prisma.StringNullableFilter<"Email"> | string | null
-  body?: Prisma.StringNullableFilter<"Email"> | string | null
+  bodyText?: Prisma.StringNullableFilter<"Email"> | string | null
+  bodyHtml?: Prisma.StringNullableFilter<"Email"> | string | null
   receivedAt?: Prisma.DateTimeFilter<"Email"> | Date | string
-  isRead?: Prisma.BoolFilter<"Email"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Email"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Email"> | Date | string
 }
 
 export type EmailCreateWithoutThreadInput = {
   id?: string
   gmailMessageId: string
-  from: string
-  to?: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
   snippet?: string | null
-  body?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
   receivedAt: Date | string
-  isRead?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutEmailsInput
   analysis?: Prisma.AIAnalysisCreateNestedOneWithoutEmailInput
   tasks?: Prisma.TaskCreateNestedManyWithoutEmailInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutEmailInput
 }
 
 export type EmailUncheckedCreateWithoutThreadInput = {
   id?: string
   userId: string
   gmailMessageId: string
-  from: string
-  to?: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
   snippet?: string | null
-  body?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
   receivedAt: Date | string
-  isRead?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   analysis?: Prisma.AIAnalysisUncheckedCreateNestedOneWithoutEmailInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutEmailInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutEmailInput
 }
 
 export type EmailCreateOrConnectWithoutThreadInput = {
@@ -752,33 +871,43 @@ export type EmailUpdateManyWithWhereWithoutThreadInput = {
 export type EmailCreateWithoutAnalysisInput = {
   id?: string
   gmailMessageId: string
-  from: string
-  to?: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
   snippet?: string | null
-  body?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
   receivedAt: Date | string
-  isRead?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutEmailsInput
-  thread?: Prisma.ThreadCreateNestedOneWithoutEmailsInput
+  thread: Prisma.ThreadCreateNestedOneWithoutEmailsInput
   tasks?: Prisma.TaskCreateNestedManyWithoutEmailInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutEmailInput
 }
 
 export type EmailUncheckedCreateWithoutAnalysisInput = {
   id?: string
   userId: string
-  threadId?: string | null
+  threadId: string
   gmailMessageId: string
-  from: string
-  to?: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
   snippet?: string | null
-  body?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
   receivedAt: Date | string
-  isRead?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutEmailInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutEmailInput
 }
 
 export type EmailCreateOrConnectWithoutAnalysisInput = {
@@ -800,65 +929,85 @@ export type EmailUpdateToOneWithWhereWithoutAnalysisInput = {
 export type EmailUpdateWithoutAnalysisInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutEmailsNestedInput
-  thread?: Prisma.ThreadUpdateOneWithoutEmailsNestedInput
+  thread?: Prisma.ThreadUpdateOneRequiredWithoutEmailsNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutEmailNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutEmailNestedInput
 }
 
 export type EmailUncheckedUpdateWithoutAnalysisInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  threadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadId?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutEmailNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutEmailNestedInput
 }
 
 export type EmailCreateWithoutTasksInput = {
   id?: string
   gmailMessageId: string
-  from: string
-  to?: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
   snippet?: string | null
-  body?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
   receivedAt: Date | string
-  isRead?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutEmailsInput
-  thread?: Prisma.ThreadCreateNestedOneWithoutEmailsInput
+  thread: Prisma.ThreadCreateNestedOneWithoutEmailsInput
   analysis?: Prisma.AIAnalysisCreateNestedOneWithoutEmailInput
+  reminders?: Prisma.ReminderCreateNestedManyWithoutEmailInput
 }
 
 export type EmailUncheckedCreateWithoutTasksInput = {
   id?: string
   userId: string
-  threadId?: string | null
+  threadId: string
   gmailMessageId: string
-  from: string
-  to?: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
   snippet?: string | null
-  body?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
   receivedAt: Date | string
-  isRead?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
   analysis?: Prisma.AIAnalysisUncheckedCreateNestedOneWithoutEmailInput
+  reminders?: Prisma.ReminderUncheckedCreateNestedManyWithoutEmailInput
 }
 
 export type EmailCreateOrConnectWithoutTasksInput = {
@@ -880,153 +1029,299 @@ export type EmailUpdateToOneWithWhereWithoutTasksInput = {
 export type EmailUpdateWithoutTasksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutEmailsNestedInput
-  thread?: Prisma.ThreadUpdateOneWithoutEmailsNestedInput
+  thread?: Prisma.ThreadUpdateOneRequiredWithoutEmailsNestedInput
   analysis?: Prisma.AIAnalysisUpdateOneWithoutEmailNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutEmailNestedInput
 }
 
 export type EmailUncheckedUpdateWithoutTasksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  threadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadId?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   analysis?: Prisma.AIAnalysisUncheckedUpdateOneWithoutEmailNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutEmailNestedInput
+}
+
+export type EmailCreateWithoutRemindersInput = {
+  id?: string
+  gmailMessageId: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
+  snippet?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
+  receivedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutEmailsInput
+  thread: Prisma.ThreadCreateNestedOneWithoutEmailsInput
+  analysis?: Prisma.AIAnalysisCreateNestedOneWithoutEmailInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutEmailInput
+}
+
+export type EmailUncheckedCreateWithoutRemindersInput = {
+  id?: string
+  userId: string
+  threadId: string
+  gmailMessageId: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
+  snippet?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
+  receivedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  analysis?: Prisma.AIAnalysisUncheckedCreateNestedOneWithoutEmailInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutEmailInput
+}
+
+export type EmailCreateOrConnectWithoutRemindersInput = {
+  where: Prisma.EmailWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmailCreateWithoutRemindersInput, Prisma.EmailUncheckedCreateWithoutRemindersInput>
+}
+
+export type EmailUpsertWithoutRemindersInput = {
+  update: Prisma.XOR<Prisma.EmailUpdateWithoutRemindersInput, Prisma.EmailUncheckedUpdateWithoutRemindersInput>
+  create: Prisma.XOR<Prisma.EmailCreateWithoutRemindersInput, Prisma.EmailUncheckedCreateWithoutRemindersInput>
+  where?: Prisma.EmailWhereInput
+}
+
+export type EmailUpdateToOneWithWhereWithoutRemindersInput = {
+  where?: Prisma.EmailWhereInput
+  data: Prisma.XOR<Prisma.EmailUpdateWithoutRemindersInput, Prisma.EmailUncheckedUpdateWithoutRemindersInput>
+}
+
+export type EmailUpdateWithoutRemindersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutEmailsNestedInput
+  thread?: Prisma.ThreadUpdateOneRequiredWithoutEmailsNestedInput
+  analysis?: Prisma.AIAnalysisUpdateOneWithoutEmailNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutEmailNestedInput
+}
+
+export type EmailUncheckedUpdateWithoutRemindersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  threadId?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  analysis?: Prisma.AIAnalysisUncheckedUpdateOneWithoutEmailNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutEmailNestedInput
 }
 
 export type EmailCreateManyUserInput = {
   id?: string
-  threadId?: string | null
+  threadId: string
   gmailMessageId: string
-  from: string
-  to?: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
   snippet?: string | null
-  body?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
   receivedAt: Date | string
-  isRead?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type EmailUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  thread?: Prisma.ThreadUpdateOneWithoutEmailsNestedInput
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  thread?: Prisma.ThreadUpdateOneRequiredWithoutEmailsNestedInput
   analysis?: Prisma.AIAnalysisUpdateOneWithoutEmailNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutEmailNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutEmailNestedInput
 }
 
 export type EmailUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  threadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadId?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   analysis?: Prisma.AIAnalysisUncheckedUpdateOneWithoutEmailNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutEmailNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutEmailNestedInput
 }
 
 export type EmailUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  threadId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadId?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type EmailCreateManyThreadInput = {
   id?: string
   userId: string
   gmailMessageId: string
-  from: string
-  to?: string | null
-  subject: string
+  gmailThreadId: string
+  sender: string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: string | null
   snippet?: string | null
-  body?: string | null
+  bodyText?: string | null
+  bodyHtml?: string | null
   receivedAt: Date | string
-  isRead?: boolean
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type EmailUpdateWithoutThreadInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutEmailsNestedInput
   analysis?: Prisma.AIAnalysisUpdateOneWithoutEmailNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutEmailNestedInput
+  reminders?: Prisma.ReminderUpdateManyWithoutEmailNestedInput
 }
 
 export type EmailUncheckedUpdateWithoutThreadInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   analysis?: Prisma.AIAnalysisUncheckedUpdateOneWithoutEmailNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutEmailNestedInput
+  reminders?: Prisma.ReminderUncheckedUpdateManyWithoutEmailNestedInput
 }
 
 export type EmailUncheckedUpdateManyWithoutThreadInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   gmailMessageId?: Prisma.StringFieldUpdateOperationsInput | string
-  from?: Prisma.StringFieldUpdateOperationsInput | string
-  to?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  gmailThreadId?: Prisma.StringFieldUpdateOperationsInput | string
+  sender?: Prisma.StringFieldUpdateOperationsInput | string
+  recipients?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  cc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  bcc?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  subject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   snippet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  body?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1036,10 +1331,12 @@ export type EmailUncheckedUpdateManyWithoutThreadInput = {
 
 export type EmailCountOutputType = {
   tasks: number
+  reminders: number
 }
 
 export type EmailCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tasks?: boolean | EmailCountOutputTypeCountTasksArgs
+  reminders?: boolean | EmailCountOutputTypeCountRemindersArgs
 }
 
 /**
@@ -1059,24 +1356,36 @@ export type EmailCountOutputTypeCountTasksArgs<ExtArgs extends runtime.Types.Ext
   where?: Prisma.TaskWhereInput
 }
 
+/**
+ * EmailCountOutputType without action
+ */
+export type EmailCountOutputTypeCountRemindersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReminderWhereInput
+}
+
 
 export type EmailSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   threadId?: boolean
   gmailMessageId?: boolean
-  from?: boolean
-  to?: boolean
+  gmailThreadId?: boolean
+  sender?: boolean
+  recipients?: boolean
+  cc?: boolean
+  bcc?: boolean
   subject?: boolean
   snippet?: boolean
-  body?: boolean
+  bodyText?: boolean
+  bodyHtml?: boolean
   receivedAt?: boolean
-  isRead?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  thread?: boolean | Prisma.Email$threadArgs<ExtArgs>
+  thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
   analysis?: boolean | Prisma.Email$analysisArgs<ExtArgs>
   tasks?: boolean | Prisma.Email$tasksArgs<ExtArgs>
+  reminders?: boolean | Prisma.Email$remindersArgs<ExtArgs>
   _count?: boolean | Prisma.EmailCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["email"]>
 
@@ -1085,16 +1394,20 @@ export type EmailSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   userId?: boolean
   threadId?: boolean
   gmailMessageId?: boolean
-  from?: boolean
-  to?: boolean
+  gmailThreadId?: boolean
+  sender?: boolean
+  recipients?: boolean
+  cc?: boolean
+  bcc?: boolean
   subject?: boolean
   snippet?: boolean
-  body?: boolean
+  bodyText?: boolean
+  bodyHtml?: boolean
   receivedAt?: boolean
-  isRead?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  thread?: boolean | Prisma.Email$threadArgs<ExtArgs>
+  thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["email"]>
 
 export type EmailSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1102,16 +1415,20 @@ export type EmailSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   userId?: boolean
   threadId?: boolean
   gmailMessageId?: boolean
-  from?: boolean
-  to?: boolean
+  gmailThreadId?: boolean
+  sender?: boolean
+  recipients?: boolean
+  cc?: boolean
+  bcc?: boolean
   subject?: boolean
   snippet?: boolean
-  body?: boolean
+  bodyText?: boolean
+  bodyHtml?: boolean
   receivedAt?: boolean
-  isRead?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  thread?: boolean | Prisma.Email$threadArgs<ExtArgs>
+  thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["email"]>
 
 export type EmailSelectScalar = {
@@ -1119,54 +1436,64 @@ export type EmailSelectScalar = {
   userId?: boolean
   threadId?: boolean
   gmailMessageId?: boolean
-  from?: boolean
-  to?: boolean
+  gmailThreadId?: boolean
+  sender?: boolean
+  recipients?: boolean
+  cc?: boolean
+  bcc?: boolean
   subject?: boolean
   snippet?: boolean
-  body?: boolean
+  bodyText?: boolean
+  bodyHtml?: boolean
   receivedAt?: boolean
-  isRead?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type EmailOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "threadId" | "gmailMessageId" | "from" | "to" | "subject" | "snippet" | "body" | "receivedAt" | "isRead" | "createdAt", ExtArgs["result"]["email"]>
+export type EmailOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "threadId" | "gmailMessageId" | "gmailThreadId" | "sender" | "recipients" | "cc" | "bcc" | "subject" | "snippet" | "bodyText" | "bodyHtml" | "receivedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["email"]>
 export type EmailInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  thread?: boolean | Prisma.Email$threadArgs<ExtArgs>
+  thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
   analysis?: boolean | Prisma.Email$analysisArgs<ExtArgs>
   tasks?: boolean | Prisma.Email$tasksArgs<ExtArgs>
+  reminders?: boolean | Prisma.Email$remindersArgs<ExtArgs>
   _count?: boolean | Prisma.EmailCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EmailIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  thread?: boolean | Prisma.Email$threadArgs<ExtArgs>
+  thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
 }
 export type EmailIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  thread?: boolean | Prisma.Email$threadArgs<ExtArgs>
+  thread?: boolean | Prisma.ThreadDefaultArgs<ExtArgs>
 }
 
 export type $EmailPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Email"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
-    thread: Prisma.$ThreadPayload<ExtArgs> | null
+    thread: Prisma.$ThreadPayload<ExtArgs>
     analysis: Prisma.$AIAnalysisPayload<ExtArgs> | null
     tasks: Prisma.$TaskPayload<ExtArgs>[]
+    reminders: Prisma.$ReminderPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
-    threadId: string | null
+    threadId: string
     gmailMessageId: string
-    from: string
-    to: string | null
-    subject: string
+    gmailThreadId: string
+    sender: string
+    recipients: runtime.JsonValue | null
+    cc: runtime.JsonValue | null
+    bcc: runtime.JsonValue | null
+    subject: string | null
     snippet: string | null
-    body: string | null
+    bodyText: string | null
+    bodyHtml: string | null
     receivedAt: Date
-    isRead: boolean
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["email"]>
   composites: {}
 }
@@ -1562,9 +1889,10 @@ readonly fields: EmailFieldRefs;
 export interface Prisma__EmailClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  thread<T extends Prisma.Email$threadArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Email$threadArgs<ExtArgs>>): Prisma.Prisma__ThreadClient<runtime.Types.Result.GetResult<Prisma.$ThreadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  thread<T extends Prisma.ThreadDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ThreadDefaultArgs<ExtArgs>>): Prisma.Prisma__ThreadClient<runtime.Types.Result.GetResult<Prisma.$ThreadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   analysis<T extends Prisma.Email$analysisArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Email$analysisArgs<ExtArgs>>): Prisma.Prisma__AIAnalysisClient<runtime.Types.Result.GetResult<Prisma.$AIAnalysisPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   tasks<T extends Prisma.Email$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Email$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reminders<T extends Prisma.Email$remindersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Email$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1598,14 +1926,18 @@ export interface EmailFieldRefs {
   readonly userId: Prisma.FieldRef<"Email", 'String'>
   readonly threadId: Prisma.FieldRef<"Email", 'String'>
   readonly gmailMessageId: Prisma.FieldRef<"Email", 'String'>
-  readonly from: Prisma.FieldRef<"Email", 'String'>
-  readonly to: Prisma.FieldRef<"Email", 'String'>
+  readonly gmailThreadId: Prisma.FieldRef<"Email", 'String'>
+  readonly sender: Prisma.FieldRef<"Email", 'String'>
+  readonly recipients: Prisma.FieldRef<"Email", 'Json'>
+  readonly cc: Prisma.FieldRef<"Email", 'Json'>
+  readonly bcc: Prisma.FieldRef<"Email", 'Json'>
   readonly subject: Prisma.FieldRef<"Email", 'String'>
   readonly snippet: Prisma.FieldRef<"Email", 'String'>
-  readonly body: Prisma.FieldRef<"Email", 'String'>
+  readonly bodyText: Prisma.FieldRef<"Email", 'String'>
+  readonly bodyHtml: Prisma.FieldRef<"Email", 'String'>
   readonly receivedAt: Prisma.FieldRef<"Email", 'DateTime'>
-  readonly isRead: Prisma.FieldRef<"Email", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Email", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Email", 'DateTime'>
 }
     
 
@@ -2007,25 +2339,6 @@ export type EmailDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Email.thread
- */
-export type Email$threadArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Thread
-   */
-  select?: Prisma.ThreadSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Thread
-   */
-  omit?: Prisma.ThreadOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ThreadInclude<ExtArgs> | null
-  where?: Prisma.ThreadWhereInput
-}
-
-/**
  * Email.analysis
  */
 export type Email$analysisArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2066,6 +2379,30 @@ export type Email$tasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
+}
+
+/**
+ * Email.reminders
+ */
+export type Email$remindersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Reminder
+   */
+  select?: Prisma.ReminderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Reminder
+   */
+  omit?: Prisma.ReminderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReminderInclude<ExtArgs> | null
+  where?: Prisma.ReminderWhereInput
+  orderBy?: Prisma.ReminderOrderByWithRelationInput | Prisma.ReminderOrderByWithRelationInput[]
+  cursor?: Prisma.ReminderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReminderScalarFieldEnum | Prisma.ReminderScalarFieldEnum[]
 }
 
 /**

@@ -27,9 +27,8 @@ export type AggregateSyncState = {
 export type SyncStateMinAggregateOutputType = {
   id: string | null
   userId: string | null
-  lastHistoryId: string | null
+  historyId: string | null
   lastSyncedAt: Date | null
-  status: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -37,9 +36,8 @@ export type SyncStateMinAggregateOutputType = {
 export type SyncStateMaxAggregateOutputType = {
   id: string | null
   userId: string | null
-  lastHistoryId: string | null
+  historyId: string | null
   lastSyncedAt: Date | null
-  status: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -47,9 +45,8 @@ export type SyncStateMaxAggregateOutputType = {
 export type SyncStateCountAggregateOutputType = {
   id: number
   userId: number
-  lastHistoryId: number
+  historyId: number
   lastSyncedAt: number
-  status: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -59,9 +56,8 @@ export type SyncStateCountAggregateOutputType = {
 export type SyncStateMinAggregateInputType = {
   id?: true
   userId?: true
-  lastHistoryId?: true
+  historyId?: true
   lastSyncedAt?: true
-  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -69,9 +65,8 @@ export type SyncStateMinAggregateInputType = {
 export type SyncStateMaxAggregateInputType = {
   id?: true
   userId?: true
-  lastHistoryId?: true
+  historyId?: true
   lastSyncedAt?: true
-  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -79,9 +74,8 @@ export type SyncStateMaxAggregateInputType = {
 export type SyncStateCountAggregateInputType = {
   id?: true
   userId?: true
-  lastHistoryId?: true
+  historyId?: true
   lastSyncedAt?: true
-  status?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -162,9 +156,8 @@ export type SyncStateGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 export type SyncStateGroupByOutputType = {
   id: string
   userId: string
-  lastHistoryId: string | null
+  historyId: string | null
   lastSyncedAt: Date | null
-  status: string
   createdAt: Date
   updatedAt: Date
   _count: SyncStateCountAggregateOutputType | null
@@ -193,9 +186,8 @@ export type SyncStateWhereInput = {
   NOT?: Prisma.SyncStateWhereInput | Prisma.SyncStateWhereInput[]
   id?: Prisma.StringFilter<"SyncState"> | string
   userId?: Prisma.StringFilter<"SyncState"> | string
-  lastHistoryId?: Prisma.StringNullableFilter<"SyncState"> | string | null
+  historyId?: Prisma.StringNullableFilter<"SyncState"> | string | null
   lastSyncedAt?: Prisma.DateTimeNullableFilter<"SyncState"> | Date | string | null
-  status?: Prisma.StringFilter<"SyncState"> | string
   createdAt?: Prisma.DateTimeFilter<"SyncState"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SyncState"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -204,9 +196,8 @@ export type SyncStateWhereInput = {
 export type SyncStateOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  lastHistoryId?: Prisma.SortOrderInput | Prisma.SortOrder
+  historyId?: Prisma.SortOrderInput | Prisma.SortOrder
   lastSyncedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -218,9 +209,8 @@ export type SyncStateWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.SyncStateWhereInput | Prisma.SyncStateWhereInput[]
   OR?: Prisma.SyncStateWhereInput[]
   NOT?: Prisma.SyncStateWhereInput | Prisma.SyncStateWhereInput[]
-  lastHistoryId?: Prisma.StringNullableFilter<"SyncState"> | string | null
+  historyId?: Prisma.StringNullableFilter<"SyncState"> | string | null
   lastSyncedAt?: Prisma.DateTimeNullableFilter<"SyncState"> | Date | string | null
-  status?: Prisma.StringFilter<"SyncState"> | string
   createdAt?: Prisma.DateTimeFilter<"SyncState"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SyncState"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -229,9 +219,8 @@ export type SyncStateWhereUniqueInput = Prisma.AtLeast<{
 export type SyncStateOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  lastHistoryId?: Prisma.SortOrderInput | Prisma.SortOrder
+  historyId?: Prisma.SortOrderInput | Prisma.SortOrder
   lastSyncedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.SyncStateCountOrderByAggregateInput
@@ -245,18 +234,16 @@ export type SyncStateScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SyncStateScalarWhereWithAggregatesInput | Prisma.SyncStateScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"SyncState"> | string
   userId?: Prisma.StringWithAggregatesFilter<"SyncState"> | string
-  lastHistoryId?: Prisma.StringNullableWithAggregatesFilter<"SyncState"> | string | null
+  historyId?: Prisma.StringNullableWithAggregatesFilter<"SyncState"> | string | null
   lastSyncedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SyncState"> | Date | string | null
-  status?: Prisma.StringWithAggregatesFilter<"SyncState"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SyncState"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"SyncState"> | Date | string
 }
 
 export type SyncStateCreateInput = {
   id?: string
-  lastHistoryId?: string | null
+  historyId?: string | null
   lastSyncedAt?: Date | string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSyncStateInput
@@ -265,18 +252,16 @@ export type SyncStateCreateInput = {
 export type SyncStateUncheckedCreateInput = {
   id?: string
   userId: string
-  lastHistoryId?: string | null
+  historyId?: string | null
   lastSyncedAt?: Date | string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type SyncStateUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lastHistoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  historyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSyncStateNestedInput
@@ -285,9 +270,8 @@ export type SyncStateUpdateInput = {
 export type SyncStateUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  lastHistoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  historyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -295,18 +279,16 @@ export type SyncStateUncheckedUpdateInput = {
 export type SyncStateCreateManyInput = {
   id?: string
   userId: string
-  lastHistoryId?: string | null
+  historyId?: string | null
   lastSyncedAt?: Date | string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type SyncStateUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lastHistoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  historyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -314,9 +296,8 @@ export type SyncStateUpdateManyMutationInput = {
 export type SyncStateUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  lastHistoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  historyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -329,9 +310,8 @@ export type SyncStateNullableScalarRelationFilter = {
 export type SyncStateCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  lastHistoryId?: Prisma.SortOrder
+  historyId?: Prisma.SortOrder
   lastSyncedAt?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -339,9 +319,8 @@ export type SyncStateCountOrderByAggregateInput = {
 export type SyncStateMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  lastHistoryId?: Prisma.SortOrder
+  historyId?: Prisma.SortOrder
   lastSyncedAt?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -349,9 +328,8 @@ export type SyncStateMaxOrderByAggregateInput = {
 export type SyncStateMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  lastHistoryId?: Prisma.SortOrder
+  historyId?: Prisma.SortOrder
   lastSyncedAt?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -390,18 +368,16 @@ export type SyncStateUncheckedUpdateOneWithoutUserNestedInput = {
 
 export type SyncStateCreateWithoutUserInput = {
   id?: string
-  lastHistoryId?: string | null
+  historyId?: string | null
   lastSyncedAt?: Date | string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type SyncStateUncheckedCreateWithoutUserInput = {
   id?: string
-  lastHistoryId?: string | null
+  historyId?: string | null
   lastSyncedAt?: Date | string | null
-  status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -424,18 +400,16 @@ export type SyncStateUpdateToOneWithWhereWithoutUserInput = {
 
 export type SyncStateUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lastHistoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  historyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type SyncStateUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  lastHistoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  historyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -445,9 +419,8 @@ export type SyncStateUncheckedUpdateWithoutUserInput = {
 export type SyncStateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  lastHistoryId?: boolean
+  historyId?: boolean
   lastSyncedAt?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -456,9 +429,8 @@ export type SyncStateSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type SyncStateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  lastHistoryId?: boolean
+  historyId?: boolean
   lastSyncedAt?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -467,9 +439,8 @@ export type SyncStateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type SyncStateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  lastHistoryId?: boolean
+  historyId?: boolean
   lastSyncedAt?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -478,14 +449,13 @@ export type SyncStateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type SyncStateSelectScalar = {
   id?: boolean
   userId?: boolean
-  lastHistoryId?: boolean
+  historyId?: boolean
   lastSyncedAt?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SyncStateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "lastHistoryId" | "lastSyncedAt" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["syncState"]>
+export type SyncStateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "historyId" | "lastSyncedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["syncState"]>
 export type SyncStateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -504,9 +474,8 @@ export type $SyncStatePayload<ExtArgs extends runtime.Types.Extensions.InternalA
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
-    lastHistoryId: string | null
+    historyId: string | null
     lastSyncedAt: Date | null
-    status: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["syncState"]>
@@ -935,9 +904,8 @@ export interface Prisma__SyncStateClient<T, Null = never, ExtArgs extends runtim
 export interface SyncStateFieldRefs {
   readonly id: Prisma.FieldRef<"SyncState", 'String'>
   readonly userId: Prisma.FieldRef<"SyncState", 'String'>
-  readonly lastHistoryId: Prisma.FieldRef<"SyncState", 'String'>
+  readonly historyId: Prisma.FieldRef<"SyncState", 'String'>
   readonly lastSyncedAt: Prisma.FieldRef<"SyncState", 'DateTime'>
-  readonly status: Prisma.FieldRef<"SyncState", 'String'>
   readonly createdAt: Prisma.FieldRef<"SyncState", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"SyncState", 'DateTime'>
 }
