@@ -28,37 +28,58 @@ export type AIAnalysisMinAggregateOutputType = {
   id: string | null
   emailId: string | null
   category: string | null
-  priority: string | null
+  importance: string | null
+  urgency: string | null
   isActionable: boolean | null
+  responseRequired: boolean | null
   summary: string | null
+  senderContext: string | null
   deadline: Date | null
-  model: string | null
-  processedAt: Date | null
+  eventTitle: string | null
+  eventStart: Date | null
+  eventEnd: Date | null
+  analyzedAt: Date | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AIAnalysisMaxAggregateOutputType = {
   id: string | null
   emailId: string | null
   category: string | null
-  priority: string | null
+  importance: string | null
+  urgency: string | null
   isActionable: boolean | null
+  responseRequired: boolean | null
   summary: string | null
+  senderContext: string | null
   deadline: Date | null
-  model: string | null
-  processedAt: Date | null
+  eventTitle: string | null
+  eventStart: Date | null
+  eventEnd: Date | null
+  analyzedAt: Date | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type AIAnalysisCountAggregateOutputType = {
   id: number
   emailId: number
   category: number
-  priority: number
+  importance: number
+  urgency: number
   isActionable: number
+  responseRequired: number
   summary: number
+  senderContext: number
   deadline: number
-  entities: number
-  model: number
-  processedAt: number
+  eventTitle: number
+  eventStart: number
+  eventEnd: number
+  actionItems: number
+  analyzedAt: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -67,37 +88,58 @@ export type AIAnalysisMinAggregateInputType = {
   id?: true
   emailId?: true
   category?: true
-  priority?: true
+  importance?: true
+  urgency?: true
   isActionable?: true
+  responseRequired?: true
   summary?: true
+  senderContext?: true
   deadline?: true
-  model?: true
-  processedAt?: true
+  eventTitle?: true
+  eventStart?: true
+  eventEnd?: true
+  analyzedAt?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type AIAnalysisMaxAggregateInputType = {
   id?: true
   emailId?: true
   category?: true
-  priority?: true
+  importance?: true
+  urgency?: true
   isActionable?: true
+  responseRequired?: true
   summary?: true
+  senderContext?: true
   deadline?: true
-  model?: true
-  processedAt?: true
+  eventTitle?: true
+  eventStart?: true
+  eventEnd?: true
+  analyzedAt?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type AIAnalysisCountAggregateInputType = {
   id?: true
   emailId?: true
   category?: true
-  priority?: true
+  importance?: true
+  urgency?: true
   isActionable?: true
+  responseRequired?: true
   summary?: true
+  senderContext?: true
   deadline?: true
-  entities?: true
-  model?: true
-  processedAt?: true
+  eventTitle?: true
+  eventStart?: true
+  eventEnd?: true
+  actionItems?: true
+  analyzedAt?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -177,13 +219,20 @@ export type AIAnalysisGroupByOutputType = {
   id: string
   emailId: string
   category: string | null
-  priority: string | null
+  importance: string | null
+  urgency: string | null
   isActionable: boolean
+  responseRequired: boolean
   summary: string | null
+  senderContext: string | null
   deadline: Date | null
-  entities: runtime.JsonValue | null
-  model: string | null
-  processedAt: Date
+  eventTitle: string | null
+  eventStart: Date | null
+  eventEnd: Date | null
+  actionItems: runtime.JsonValue | null
+  analyzedAt: Date
+  createdAt: Date
+  updatedAt: Date
   _count: AIAnalysisCountAggregateOutputType | null
   _min: AIAnalysisMinAggregateOutputType | null
   _max: AIAnalysisMaxAggregateOutputType | null
@@ -211,13 +260,20 @@ export type AIAnalysisWhereInput = {
   id?: Prisma.StringFilter<"AIAnalysis"> | string
   emailId?: Prisma.StringFilter<"AIAnalysis"> | string
   category?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
-  priority?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
+  importance?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
+  urgency?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
   isActionable?: Prisma.BoolFilter<"AIAnalysis"> | boolean
+  responseRequired?: Prisma.BoolFilter<"AIAnalysis"> | boolean
   summary?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
+  senderContext?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
   deadline?: Prisma.DateTimeNullableFilter<"AIAnalysis"> | Date | string | null
-  entities?: Prisma.JsonNullableFilter<"AIAnalysis">
-  model?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
-  processedAt?: Prisma.DateTimeFilter<"AIAnalysis"> | Date | string
+  eventTitle?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
+  eventStart?: Prisma.DateTimeNullableFilter<"AIAnalysis"> | Date | string | null
+  eventEnd?: Prisma.DateTimeNullableFilter<"AIAnalysis"> | Date | string | null
+  actionItems?: Prisma.JsonNullableFilter<"AIAnalysis">
+  analyzedAt?: Prisma.DateTimeFilter<"AIAnalysis"> | Date | string
+  createdAt?: Prisma.DateTimeFilter<"AIAnalysis"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"AIAnalysis"> | Date | string
   email?: Prisma.XOR<Prisma.EmailScalarRelationFilter, Prisma.EmailWhereInput>
 }
 
@@ -225,13 +281,20 @@ export type AIAnalysisOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   emailId?: Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
-  priority?: Prisma.SortOrderInput | Prisma.SortOrder
+  importance?: Prisma.SortOrderInput | Prisma.SortOrder
+  urgency?: Prisma.SortOrderInput | Prisma.SortOrder
   isActionable?: Prisma.SortOrder
+  responseRequired?: Prisma.SortOrder
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
+  senderContext?: Prisma.SortOrderInput | Prisma.SortOrder
   deadline?: Prisma.SortOrderInput | Prisma.SortOrder
-  entities?: Prisma.SortOrderInput | Prisma.SortOrder
-  model?: Prisma.SortOrderInput | Prisma.SortOrder
-  processedAt?: Prisma.SortOrder
+  eventTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  eventStart?: Prisma.SortOrderInput | Prisma.SortOrder
+  eventEnd?: Prisma.SortOrderInput | Prisma.SortOrder
+  actionItems?: Prisma.SortOrderInput | Prisma.SortOrder
+  analyzedAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   email?: Prisma.EmailOrderByWithRelationInput
 }
 
@@ -242,13 +305,20 @@ export type AIAnalysisWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AIAnalysisWhereInput[]
   NOT?: Prisma.AIAnalysisWhereInput | Prisma.AIAnalysisWhereInput[]
   category?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
-  priority?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
+  importance?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
+  urgency?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
   isActionable?: Prisma.BoolFilter<"AIAnalysis"> | boolean
+  responseRequired?: Prisma.BoolFilter<"AIAnalysis"> | boolean
   summary?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
+  senderContext?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
   deadline?: Prisma.DateTimeNullableFilter<"AIAnalysis"> | Date | string | null
-  entities?: Prisma.JsonNullableFilter<"AIAnalysis">
-  model?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
-  processedAt?: Prisma.DateTimeFilter<"AIAnalysis"> | Date | string
+  eventTitle?: Prisma.StringNullableFilter<"AIAnalysis"> | string | null
+  eventStart?: Prisma.DateTimeNullableFilter<"AIAnalysis"> | Date | string | null
+  eventEnd?: Prisma.DateTimeNullableFilter<"AIAnalysis"> | Date | string | null
+  actionItems?: Prisma.JsonNullableFilter<"AIAnalysis">
+  analyzedAt?: Prisma.DateTimeFilter<"AIAnalysis"> | Date | string
+  createdAt?: Prisma.DateTimeFilter<"AIAnalysis"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"AIAnalysis"> | Date | string
   email?: Prisma.XOR<Prisma.EmailScalarRelationFilter, Prisma.EmailWhereInput>
 }, "id" | "emailId">
 
@@ -256,13 +326,20 @@ export type AIAnalysisOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   emailId?: Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
-  priority?: Prisma.SortOrderInput | Prisma.SortOrder
+  importance?: Prisma.SortOrderInput | Prisma.SortOrder
+  urgency?: Prisma.SortOrderInput | Prisma.SortOrder
   isActionable?: Prisma.SortOrder
+  responseRequired?: Prisma.SortOrder
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
+  senderContext?: Prisma.SortOrderInput | Prisma.SortOrder
   deadline?: Prisma.SortOrderInput | Prisma.SortOrder
-  entities?: Prisma.SortOrderInput | Prisma.SortOrder
-  model?: Prisma.SortOrderInput | Prisma.SortOrder
-  processedAt?: Prisma.SortOrder
+  eventTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  eventStart?: Prisma.SortOrderInput | Prisma.SortOrder
+  eventEnd?: Prisma.SortOrderInput | Prisma.SortOrder
+  actionItems?: Prisma.SortOrderInput | Prisma.SortOrder
+  analyzedAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.AIAnalysisCountOrderByAggregateInput
   _max?: Prisma.AIAnalysisMaxOrderByAggregateInput
   _min?: Prisma.AIAnalysisMinOrderByAggregateInput
@@ -275,25 +352,39 @@ export type AIAnalysisScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"AIAnalysis"> | string
   emailId?: Prisma.StringWithAggregatesFilter<"AIAnalysis"> | string
   category?: Prisma.StringNullableWithAggregatesFilter<"AIAnalysis"> | string | null
-  priority?: Prisma.StringNullableWithAggregatesFilter<"AIAnalysis"> | string | null
+  importance?: Prisma.StringNullableWithAggregatesFilter<"AIAnalysis"> | string | null
+  urgency?: Prisma.StringNullableWithAggregatesFilter<"AIAnalysis"> | string | null
   isActionable?: Prisma.BoolWithAggregatesFilter<"AIAnalysis"> | boolean
+  responseRequired?: Prisma.BoolWithAggregatesFilter<"AIAnalysis"> | boolean
   summary?: Prisma.StringNullableWithAggregatesFilter<"AIAnalysis"> | string | null
+  senderContext?: Prisma.StringNullableWithAggregatesFilter<"AIAnalysis"> | string | null
   deadline?: Prisma.DateTimeNullableWithAggregatesFilter<"AIAnalysis"> | Date | string | null
-  entities?: Prisma.JsonNullableWithAggregatesFilter<"AIAnalysis">
-  model?: Prisma.StringNullableWithAggregatesFilter<"AIAnalysis"> | string | null
-  processedAt?: Prisma.DateTimeWithAggregatesFilter<"AIAnalysis"> | Date | string
+  eventTitle?: Prisma.StringNullableWithAggregatesFilter<"AIAnalysis"> | string | null
+  eventStart?: Prisma.DateTimeNullableWithAggregatesFilter<"AIAnalysis"> | Date | string | null
+  eventEnd?: Prisma.DateTimeNullableWithAggregatesFilter<"AIAnalysis"> | Date | string | null
+  actionItems?: Prisma.JsonNullableWithAggregatesFilter<"AIAnalysis">
+  analyzedAt?: Prisma.DateTimeWithAggregatesFilter<"AIAnalysis"> | Date | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"AIAnalysis"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"AIAnalysis"> | Date | string
 }
 
 export type AIAnalysisCreateInput = {
   id?: string
   category?: string | null
-  priority?: string | null
+  importance?: string | null
+  urgency?: string | null
   isActionable?: boolean
+  responseRequired?: boolean
   summary?: string | null
+  senderContext?: string | null
   deadline?: Date | string | null
-  entities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  model?: string | null
-  processedAt?: Date | string
+  eventTitle?: string | null
+  eventStart?: Date | string | null
+  eventEnd?: Date | string | null
+  actionItems?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  analyzedAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   email: Prisma.EmailCreateNestedOneWithoutAnalysisInput
 }
 
@@ -301,25 +392,39 @@ export type AIAnalysisUncheckedCreateInput = {
   id?: string
   emailId: string
   category?: string | null
-  priority?: string | null
+  importance?: string | null
+  urgency?: string | null
   isActionable?: boolean
+  responseRequired?: boolean
   summary?: string | null
+  senderContext?: string | null
   deadline?: Date | string | null
-  entities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  model?: string | null
-  processedAt?: Date | string
+  eventTitle?: string | null
+  eventStart?: Date | string | null
+  eventEnd?: Date | string | null
+  actionItems?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  analyzedAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AIAnalysisUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  priority?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  urgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActionable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  responseRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  entities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  eventTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eventEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  actionItems?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  analyzedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   email?: Prisma.EmailUpdateOneRequiredWithoutAnalysisNestedInput
 }
 
@@ -327,51 +432,79 @@ export type AIAnalysisUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   emailId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  priority?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  urgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActionable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  responseRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  entities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  eventTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eventEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  actionItems?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  analyzedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AIAnalysisCreateManyInput = {
   id?: string
   emailId: string
   category?: string | null
-  priority?: string | null
+  importance?: string | null
+  urgency?: string | null
   isActionable?: boolean
+  responseRequired?: boolean
   summary?: string | null
+  senderContext?: string | null
   deadline?: Date | string | null
-  entities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  model?: string | null
-  processedAt?: Date | string
+  eventTitle?: string | null
+  eventStart?: Date | string | null
+  eventEnd?: Date | string | null
+  actionItems?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  analyzedAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AIAnalysisUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  priority?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  urgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActionable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  responseRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  entities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  eventTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eventEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  actionItems?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  analyzedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AIAnalysisUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   emailId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  priority?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  urgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActionable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  responseRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  entities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  eventTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eventEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  actionItems?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  analyzedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AIAnalysisNullableScalarRelationFilter = {
@@ -383,37 +516,58 @@ export type AIAnalysisCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   emailId?: Prisma.SortOrder
   category?: Prisma.SortOrder
-  priority?: Prisma.SortOrder
+  importance?: Prisma.SortOrder
+  urgency?: Prisma.SortOrder
   isActionable?: Prisma.SortOrder
+  responseRequired?: Prisma.SortOrder
   summary?: Prisma.SortOrder
+  senderContext?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
-  entities?: Prisma.SortOrder
-  model?: Prisma.SortOrder
-  processedAt?: Prisma.SortOrder
+  eventTitle?: Prisma.SortOrder
+  eventStart?: Prisma.SortOrder
+  eventEnd?: Prisma.SortOrder
+  actionItems?: Prisma.SortOrder
+  analyzedAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AIAnalysisMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   emailId?: Prisma.SortOrder
   category?: Prisma.SortOrder
-  priority?: Prisma.SortOrder
+  importance?: Prisma.SortOrder
+  urgency?: Prisma.SortOrder
   isActionable?: Prisma.SortOrder
+  responseRequired?: Prisma.SortOrder
   summary?: Prisma.SortOrder
+  senderContext?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
-  model?: Prisma.SortOrder
-  processedAt?: Prisma.SortOrder
+  eventTitle?: Prisma.SortOrder
+  eventStart?: Prisma.SortOrder
+  eventEnd?: Prisma.SortOrder
+  analyzedAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AIAnalysisMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   emailId?: Prisma.SortOrder
   category?: Prisma.SortOrder
-  priority?: Prisma.SortOrder
+  importance?: Prisma.SortOrder
+  urgency?: Prisma.SortOrder
   isActionable?: Prisma.SortOrder
+  responseRequired?: Prisma.SortOrder
   summary?: Prisma.SortOrder
+  senderContext?: Prisma.SortOrder
   deadline?: Prisma.SortOrder
-  model?: Prisma.SortOrder
-  processedAt?: Prisma.SortOrder
+  eventTitle?: Prisma.SortOrder
+  eventStart?: Prisma.SortOrder
+  eventEnd?: Prisma.SortOrder
+  analyzedAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type AIAnalysisCreateNestedOneWithoutEmailInput = {
@@ -448,28 +602,50 @@ export type AIAnalysisUncheckedUpdateOneWithoutEmailNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AIAnalysisUpdateToOneWithWhereWithoutEmailInput, Prisma.AIAnalysisUpdateWithoutEmailInput>, Prisma.AIAnalysisUncheckedUpdateWithoutEmailInput>
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type AIAnalysisCreateWithoutEmailInput = {
   id?: string
   category?: string | null
-  priority?: string | null
+  importance?: string | null
+  urgency?: string | null
   isActionable?: boolean
+  responseRequired?: boolean
   summary?: string | null
+  senderContext?: string | null
   deadline?: Date | string | null
-  entities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  model?: string | null
-  processedAt?: Date | string
+  eventTitle?: string | null
+  eventStart?: Date | string | null
+  eventEnd?: Date | string | null
+  actionItems?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  analyzedAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AIAnalysisUncheckedCreateWithoutEmailInput = {
   id?: string
   category?: string | null
-  priority?: string | null
+  importance?: string | null
+  urgency?: string | null
   isActionable?: boolean
+  responseRequired?: boolean
   summary?: string | null
+  senderContext?: string | null
   deadline?: Date | string | null
-  entities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  model?: string | null
-  processedAt?: Date | string
+  eventTitle?: string | null
+  eventStart?: Date | string | null
+  eventEnd?: Date | string | null
+  actionItems?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  analyzedAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type AIAnalysisCreateOrConnectWithoutEmailInput = {
@@ -491,25 +667,39 @@ export type AIAnalysisUpdateToOneWithWhereWithoutEmailInput = {
 export type AIAnalysisUpdateWithoutEmailInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  priority?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  urgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActionable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  responseRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  entities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  eventTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eventEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  actionItems?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  analyzedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AIAnalysisUncheckedUpdateWithoutEmailInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  priority?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  importance?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  urgency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isActionable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  responseRequired?: Prisma.BoolFieldUpdateOperationsInput | boolean
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  entities?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  processedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  eventTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  eventStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  eventEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  actionItems?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  analyzedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -518,13 +708,20 @@ export type AIAnalysisSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   emailId?: boolean
   category?: boolean
-  priority?: boolean
+  importance?: boolean
+  urgency?: boolean
   isActionable?: boolean
+  responseRequired?: boolean
   summary?: boolean
+  senderContext?: boolean
   deadline?: boolean
-  entities?: boolean
-  model?: boolean
-  processedAt?: boolean
+  eventTitle?: boolean
+  eventStart?: boolean
+  eventEnd?: boolean
+  actionItems?: boolean
+  analyzedAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   email?: boolean | Prisma.EmailDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["aIAnalysis"]>
 
@@ -532,13 +729,20 @@ export type AIAnalysisSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   emailId?: boolean
   category?: boolean
-  priority?: boolean
+  importance?: boolean
+  urgency?: boolean
   isActionable?: boolean
+  responseRequired?: boolean
   summary?: boolean
+  senderContext?: boolean
   deadline?: boolean
-  entities?: boolean
-  model?: boolean
-  processedAt?: boolean
+  eventTitle?: boolean
+  eventStart?: boolean
+  eventEnd?: boolean
+  actionItems?: boolean
+  analyzedAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   email?: boolean | Prisma.EmailDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["aIAnalysis"]>
 
@@ -546,13 +750,20 @@ export type AIAnalysisSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   emailId?: boolean
   category?: boolean
-  priority?: boolean
+  importance?: boolean
+  urgency?: boolean
   isActionable?: boolean
+  responseRequired?: boolean
   summary?: boolean
+  senderContext?: boolean
   deadline?: boolean
-  entities?: boolean
-  model?: boolean
-  processedAt?: boolean
+  eventTitle?: boolean
+  eventStart?: boolean
+  eventEnd?: boolean
+  actionItems?: boolean
+  analyzedAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   email?: boolean | Prisma.EmailDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["aIAnalysis"]>
 
@@ -560,16 +771,23 @@ export type AIAnalysisSelectScalar = {
   id?: boolean
   emailId?: boolean
   category?: boolean
-  priority?: boolean
+  importance?: boolean
+  urgency?: boolean
   isActionable?: boolean
+  responseRequired?: boolean
   summary?: boolean
+  senderContext?: boolean
   deadline?: boolean
-  entities?: boolean
-  model?: boolean
-  processedAt?: boolean
+  eventTitle?: boolean
+  eventStart?: boolean
+  eventEnd?: boolean
+  actionItems?: boolean
+  analyzedAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type AIAnalysisOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "emailId" | "category" | "priority" | "isActionable" | "summary" | "deadline" | "entities" | "model" | "processedAt", ExtArgs["result"]["aIAnalysis"]>
+export type AIAnalysisOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "emailId" | "category" | "importance" | "urgency" | "isActionable" | "responseRequired" | "summary" | "senderContext" | "deadline" | "eventTitle" | "eventStart" | "eventEnd" | "actionItems" | "analyzedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["aIAnalysis"]>
 export type AIAnalysisInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   email?: boolean | Prisma.EmailDefaultArgs<ExtArgs>
 }
@@ -589,13 +807,20 @@ export type $AIAnalysisPayload<ExtArgs extends runtime.Types.Extensions.Internal
     id: string
     emailId: string
     category: string | null
-    priority: string | null
+    importance: string | null
+    urgency: string | null
     isActionable: boolean
+    responseRequired: boolean
     summary: string | null
+    senderContext: string | null
     deadline: Date | null
-    entities: runtime.JsonValue | null
-    model: string | null
-    processedAt: Date
+    eventTitle: string | null
+    eventStart: Date | null
+    eventEnd: Date | null
+    actionItems: runtime.JsonValue | null
+    analyzedAt: Date
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["aIAnalysis"]>
   composites: {}
 }
@@ -1023,13 +1248,20 @@ export interface AIAnalysisFieldRefs {
   readonly id: Prisma.FieldRef<"AIAnalysis", 'String'>
   readonly emailId: Prisma.FieldRef<"AIAnalysis", 'String'>
   readonly category: Prisma.FieldRef<"AIAnalysis", 'String'>
-  readonly priority: Prisma.FieldRef<"AIAnalysis", 'String'>
+  readonly importance: Prisma.FieldRef<"AIAnalysis", 'String'>
+  readonly urgency: Prisma.FieldRef<"AIAnalysis", 'String'>
   readonly isActionable: Prisma.FieldRef<"AIAnalysis", 'Boolean'>
+  readonly responseRequired: Prisma.FieldRef<"AIAnalysis", 'Boolean'>
   readonly summary: Prisma.FieldRef<"AIAnalysis", 'String'>
+  readonly senderContext: Prisma.FieldRef<"AIAnalysis", 'String'>
   readonly deadline: Prisma.FieldRef<"AIAnalysis", 'DateTime'>
-  readonly entities: Prisma.FieldRef<"AIAnalysis", 'Json'>
-  readonly model: Prisma.FieldRef<"AIAnalysis", 'String'>
-  readonly processedAt: Prisma.FieldRef<"AIAnalysis", 'DateTime'>
+  readonly eventTitle: Prisma.FieldRef<"AIAnalysis", 'String'>
+  readonly eventStart: Prisma.FieldRef<"AIAnalysis", 'DateTime'>
+  readonly eventEnd: Prisma.FieldRef<"AIAnalysis", 'DateTime'>
+  readonly actionItems: Prisma.FieldRef<"AIAnalysis", 'Json'>
+  readonly analyzedAt: Prisma.FieldRef<"AIAnalysis", 'DateTime'>
+  readonly createdAt: Prisma.FieldRef<"AIAnalysis", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"AIAnalysis", 'DateTime'>
 }
     
 

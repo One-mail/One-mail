@@ -1070,14 +1070,16 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const AccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  type: 'type',
   provider: 'provider',
   providerAccountId: 'providerAccountId',
-  accessToken: 'accessToken',
-  refreshToken: 'refreshToken',
-  expiresAt: 'expiresAt',
-  tokenType: 'tokenType',
+  access_token: 'access_token',
+  refresh_token: 'refresh_token',
+  expires_at: 'expires_at',
+  token_type: 'token_type',
   scope: 'scope',
-  idToken: 'idToken',
+  id_token: 'id_token',
+  session_state: 'session_state',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1091,7 +1093,6 @@ export const ThreadScalarFieldEnum = {
   gmailThreadId: 'gmailThreadId',
   subject: 'subject',
   snippet: 'snippet',
-  lastMessageAt: 'lastMessageAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1104,14 +1105,18 @@ export const EmailScalarFieldEnum = {
   userId: 'userId',
   threadId: 'threadId',
   gmailMessageId: 'gmailMessageId',
-  from: 'from',
-  to: 'to',
+  gmailThreadId: 'gmailThreadId',
+  sender: 'sender',
+  recipients: 'recipients',
+  cc: 'cc',
+  bcc: 'bcc',
   subject: 'subject',
   snippet: 'snippet',
-  body: 'body',
+  bodyText: 'bodyText',
+  bodyHtml: 'bodyHtml',
   receivedAt: 'receivedAt',
-  isRead: 'isRead',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type EmailScalarFieldEnum = (typeof EmailScalarFieldEnum)[keyof typeof EmailScalarFieldEnum]
@@ -1121,13 +1126,20 @@ export const AIAnalysisScalarFieldEnum = {
   id: 'id',
   emailId: 'emailId',
   category: 'category',
-  priority: 'priority',
+  importance: 'importance',
+  urgency: 'urgency',
   isActionable: 'isActionable',
+  responseRequired: 'responseRequired',
   summary: 'summary',
+  senderContext: 'senderContext',
   deadline: 'deadline',
-  entities: 'entities',
-  model: 'model',
-  processedAt: 'processedAt'
+  eventTitle: 'eventTitle',
+  eventStart: 'eventStart',
+  eventEnd: 'eventEnd',
+  actionItems: 'actionItems',
+  analyzedAt: 'analyzedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type AIAnalysisScalarFieldEnum = (typeof AIAnalysisScalarFieldEnum)[keyof typeof AIAnalysisScalarFieldEnum]
@@ -1139,8 +1151,10 @@ export const TaskScalarFieldEnum = {
   emailId: 'emailId',
   title: 'title',
   description: 'description',
-  deadline: 'deadline',
   status: 'status',
+  priority: 'priority',
+  dueAt: 'dueAt',
+  completedAt: 'completedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1150,13 +1164,14 @@ export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof Task
 
 export const ReminderScalarFieldEnum = {
   id: 'id',
-  taskId: 'taskId',
   userId: 'userId',
+  taskId: 'taskId',
+  emailId: 'emailId',
+  title: 'title',
   remindAt: 'remindAt',
-  channel: 'channel',
-  sent: 'sent',
-  sentAt: 'sentAt',
-  createdAt: 'createdAt'
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type ReminderScalarFieldEnum = (typeof ReminderScalarFieldEnum)[keyof typeof ReminderScalarFieldEnum]
@@ -1165,9 +1180,8 @@ export type ReminderScalarFieldEnum = (typeof ReminderScalarFieldEnum)[keyof typ
 export const SyncStateScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  lastHistoryId: 'lastHistoryId',
+  historyId: 'historyId',
   lastSyncedAt: 'lastSyncedAt',
-  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1265,13 +1279,6 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-/**
  * Reference to a field of type 'Json'
  */
 export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -1282,6 +1289,55 @@ export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'J
  * Reference to a field of type 'QueryMode'
  */
 export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'TaskStatus'
+ */
+export type EnumTaskStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaskStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'TaskStatus[]'
+ */
+export type ListEnumTaskStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TaskStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Priority'
+ */
+export type EnumPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Priority'>
+    
+
+
+/**
+ * Reference to a field of type 'Priority[]'
+ */
+export type ListEnumPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Priority[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ReminderStatus'
+ */
+export type EnumReminderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReminderStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ReminderStatus[]'
+ */
+export type ListEnumReminderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReminderStatus[]'>
     
 
 
