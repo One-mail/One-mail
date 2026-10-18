@@ -1,0 +1,25 @@
+{
+  "id": "1894a8f9c1000001",
+  "threadId": "1894a8f9c1000001",
+  "labelIds": ["INBOX", "IMPORTANT", "CATEGORY_PERSONAL"],
+  "snippet": "Hello OneMail team, This is a standard plain text email for testing ingestion.",
+  "historyId": "1001",
+  "internalDate": "1729272000000",
+  "sizeEstimate": 1024,
+  "payload": {
+    "partId": "",
+    "mimeType": "text/plain",
+    "filename": "",
+    "headers": [
+      { "name": "From", "value": "Alice Smith <alice@example.com>" },
+      { "name": "To", "value": "Bob Jones <bob@example.com>" },
+      { "name": "Subject", "value": "Quarterly Planning Meeting" },
+      { "name": "Date", "value": "Fri, 18 Oct 2026 12:00:00 +0000" },
+      { "name": "Message-ID", "value": "<msg-001@mail.example.com>" }
+    ],
+    "body": {
+      "size": 103,
+      "data": "SGVsbG8gT25lTWFpbCB0ZWFtLApUaGlzIGlzIGEgc3RhbmRhcmQgcGxhaW4gdGV4dCBlbWFpbCBmb3IgdGVzdGluZyBpbmdlc3Rpb24uCkJlc3QgcmVnYXJkcywKQWxpY2U"
+    }
+  }
+}

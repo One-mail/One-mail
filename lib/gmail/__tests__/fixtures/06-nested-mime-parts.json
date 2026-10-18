@@ -1,0 +1,80 @@
+{
+  "id": "1894a8f9c1000006",
+  "threadId": "1894a8f9c1000006",
+  "labelIds": ["INBOX"],
+  "snippet": "Here is the invoice and statement you requested.",
+  "historyId": "1006",
+  "internalDate": "1729290000000",
+  "payload": {
+    "partId": "",
+    "mimeType": "multipart/mixed",
+    "filename": "",
+    "headers": [
+      { "name": "From", "value": "Billing <billing@vendor.com>" },
+      { "name": "To", "value": "Alice Smith <alice@example.com>" },
+      { "name": "Subject", "value": "Invoice #8920 Attached" },
+      { "name": "Date", "value": "Fri, 18 Oct 2026 17:00:00 +0000" }
+    ],
+    "body": { "size": 0 },
+    "parts": [
+      {
+        "partId": "0",
+        "mimeType": "multipart/related",
+        "filename": "",
+        "headers": [],
+        "body": { "size": 0 },
+        "parts": [
+          {
+            "partId": "0.0",
+            "mimeType": "multipart/alternative",
+            "filename": "",
+            "headers": [],
+            "body": { "size": 0 },
+            "parts": [
+              {
+                "partId": "0.0.0",
+                "mimeType": "text/plain",
+                "filename": "",
+                "headers": [],
+                "body": {
+                  "size": 49,
+                  "data": "UGxlYXNlIGZpbmQgeW91ciBpbnZvaWNlIGRvY3VtZW50cyBhdHRhY2hlZC4"
+                }
+              },
+              {
+                "partId": "0.0.1",
+                "mimeType": "text/html",
+                "filename": "",
+                "headers": [],
+                "body": {
+                  "size": 75,
+                  "data": "PHA-UGxlYXNlIGZpbmQgeW91ciA8Yj5pbnZvaWNlIGRvY3VtZW50czwvYj4gYXR0YWNoZWQuPC9wPg"
+                }
+              }
+            ]
+          },
+          {
+            "partId": "0.1",
+            "mimeType": "image/png",
+            "filename": "logo.png",
+            "headers": [],
+            "body": {
+              "attachmentId": "att-logo-1",
+              "size": 1540
+            }
+          }
+        ]
+      },
+      {
+        "partId": "1",
+        "mimeType": "application/pdf",
+        "filename": "invoice_8920.pdf",
+        "headers": [],
+        "body": {
+          "attachmentId": "att-pdf-2",
+          "size": 65400
+        }
+      }
+    ]
+  }
+}

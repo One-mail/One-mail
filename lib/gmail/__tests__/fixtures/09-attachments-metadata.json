@@ -1,0 +1,52 @@
+{
+  "id": "1894a8f9c1000009",
+  "threadId": "1894a8f9c1000009",
+  "labelIds": ["INBOX"],
+  "snippet": "Attached are the quarterly report and dashboard charts.",
+  "historyId": "1009",
+  "internalDate": "1729297200000",
+  "payload": {
+    "partId": "",
+    "mimeType": "multipart/mixed",
+    "filename": "",
+    "headers": [
+      { "name": "From", "value": "Reports <reports@analytics.com>" },
+      { "name": "To", "value": "Alice Smith <alice@example.com>" },
+      { "name": "Subject", "value": "Quarterly Financial Packet" },
+      { "name": "Date", "value": "Fri, 18 Oct 2026 19:00:00 +0000" }
+    ],
+    "body": { "size": 0 },
+    "parts": [
+      {
+        "partId": "0",
+        "mimeType": "text/plain",
+        "filename": "",
+        "headers": [],
+        "body": {
+          "size": 52,
+          "data": "QXR0YWNoZWQgYXJlIHRoZSBxdWFydGVybHkgcmVwb3J0IGFuZCBkYXNoYm9hcmQgY2hhcnRzLg"
+        }
+      },
+      {
+        "partId": "1",
+        "mimeType": "application/pdf",
+        "filename": "Q3_Report_2026.pdf",
+        "headers": [],
+        "body": {
+          "attachmentId": "att-pdf-9988",
+          "size": 1048576
+        }
+      },
+      {
+        "partId": "2",
+        "mimeType": "image/jpeg",
+        "filename": "chart_metrics.jpg",
+        "headers": [],
+        "body": {
+          "attachmentId": "att-img-9989",
+          "size": 420800
+        }
+      }
+    ]
+  }
+}

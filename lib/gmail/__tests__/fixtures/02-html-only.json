@@ -1,0 +1,25 @@
+{
+  "id": "1894a8f9c1000002",
+  "threadId": "1894a8f9c1000002",
+  "labelIds": ["INBOX", "CATEGORY_PROMOTIONS"],
+  "snippet": "Weekly Project Update Hello Alice, here is your HTML summary.",
+  "historyId": "1002",
+  "internalDate": "1729275600000",
+  "sizeEstimate": 2048,
+  "payload": {
+    "partId": "",
+    "mimeType": "text/html",
+    "filename": "",
+    "headers": [
+      { "name": "From", "value": "Newsletter <news@company.org>" },
+      { "name": "To", "value": "Alice Smith <alice@example.com>" },
+      { "name": "Subject", "value": "Weekly Project Update" },
+      { "name": "Date", "value": "Fri, 18 Oct 2026 13:00:00 +0000" },
+      { "name": "Message-ID", "value": "<msg-002@news.company.org>" }
+    ],
+    "body": {
+      "size": 104,
+      "data": "PGRpdj48aDE-V2Vla2x5IFByb2plY3QgVXBkYXRlPC9oMT48cD5IZWxsbyBBbGljZSwgaGVyZSBpcyB5b3VyIEhUTUwgc3VtbWFyeS48L3A-PC9kaXY-"
+    }
+  }
+}
