@@ -1,0 +1,11 @@
+{
+  "messages": [
+    { "id": "1894a8f9c1000001", "threadId": "1894a8f9c1000001" },
+    { "id": "1894a8f9c1000002", "threadId": "1894a8f9c1000002" },
+    { "id": "1894a8f9c1000003", "threadId": "1894a8f9c1000003" },
+    { "id": "1894a8f9c1000004", "threadId": "1894a8f9c1000004" },
+    { "id": "1894a8f9c1000005", "threadId": "1894a8f9c1000005" }
+  ],
+  "nextPageToken": "PAGE_TOKEN_ABC123XYZ",
+  "resultSizeEstimate": 142
+}

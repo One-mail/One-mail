@@ -1,0 +1,21 @@
+{
+  "id": "1894a8f9c1000004",
+  "threadId": "1894a8f9c1000004",
+  "labelIds": ["INBOX"],
+  "snippet": "Just pinging without a subject line.",
+  "historyId": "1004",
+  "internalDate": "1729282800000",
+  "payload": {
+    "partId": "",
+    "mimeType": "text/plain",
+    "filename": "",
+    "headers": [
+      { "name": "From", "value": "coworker@company.com" },
+      { "name": "To", "value": "alice@example.com" }
+    ],
+    "body": {
+      "size": 36,
+      "data": "SnVzdCBwaW5naW5nIHdpdGhvdXQgYSBzdWJqZWN0IGxpbmUu"
+    }
+  }
+}

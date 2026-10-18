@@ -1,0 +1,51 @@
+{
+  "id": "1894a8f9c1000003",
+  "threadId": "1894a8f9c1000003",
+  "labelIds": ["INBOX", "UNREAD"],
+  "snippet": "Action Required: Complete your profile verification before Friday.",
+  "historyId": "1003",
+  "internalDate": "1729279200000",
+  "sizeEstimate": 4096,
+  "payload": {
+    "partId": "",
+    "mimeType": "multipart/alternative",
+    "filename": "",
+    "headers": [
+      { "name": "From", "value": "Security Team <security@auth.com>" },
+      { "name": "To", "value": "Alice Smith <alice@example.com>" },
+      { "name": "Cc", "value": "compliance@auth.com" },
+      { "name": "Subject", "value": "Action Required: Verify Account" },
+      { "name": "Date", "value": "Fri, 18 Oct 2026 14:00:00 +0000" },
+      { "name": "Message-ID", "value": "<sec-003@auth.com>" }
+    ],
+    "body": {
+      "size": 0
+    },
+    "parts": [
+      {
+        "partId": "0",
+        "mimeType": "text/plain",
+        "filename": "",
+        "headers": [
+          { "name": "Content-Type", "value": "text/plain; charset=UTF-8" }
+        ],
+        "body": {
+          "size": 68,
+          "data": "QWN0aW9uIFJlcXVpcmVkOiBDb21wbGV0ZSB5b3VyIHByb2ZpbGUgdmVyaWZpY2F0aW9uIGJlZm9yZSBGcmlkYXku"
+        }
+      },
+      {
+        "partId": "1",
+        "mimeType": "text/html",
+        "filename": "",
+        "headers": [
+          { "name": "Content-Type", "value": "text/html; charset=UTF-8" }
+        ],
+        "body": {
+          "size": 115,
+          "data": "PHA-PHN0cm9uZz5BY3Rpb24gUmVxdWlyZWQ6PC9zdHJvbmc-IENvbXBsZXRlIHlvdXIgcHJvZmlsZSB2ZXJpZmljYXRpb24gYmVmb3JlIEZyaWRheS48L3A-"
+        }
+      }
+    ]
+  }
+}

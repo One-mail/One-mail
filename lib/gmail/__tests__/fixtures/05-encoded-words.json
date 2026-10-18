@@ -1,0 +1,23 @@
+{
+  "id": "1894a8f9c1000005",
+  "threadId": "1894a8f9c1000005",
+  "labelIds": ["INBOX"],
+  "snippet": "Bonjour Alice, voici les détails pour le café.",
+  "historyId": "1005",
+  "internalDate": "1729286400000",
+  "payload": {
+    "partId": "",
+    "mimeType": "text/plain",
+    "filename": "",
+    "headers": [
+      { "name": "From", "value": "=?UTF-8?B?SsOpcsO0bWUgRHVwb250?= <jerome@example.fr>" },
+      { "name": "To", "value": "Alice Smith <alice@example.com>" },
+      { "name": "Subject", "value": "=?ISO-8859-1?Q?Caf=E9_Rencontre?= - Confirmation" },
+      { "name": "Date", "value": "Fri, 18 Oct 2026 16:00:00 +0000" }
+    ],
+    "body": {
+      "size": 47,
+      "data": "Qm9uam91ciBBbGljZSwgdm9pY2kgbGVzIGTDqXRhaWxzIHBvdXIgbGUgY2Fmw6ku"
+    }
+  }
+}

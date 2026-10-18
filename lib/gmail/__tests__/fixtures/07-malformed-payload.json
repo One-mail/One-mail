@@ -1,0 +1,25 @@
+{
+  "missingId": {
+    "threadId": "1894a8f9c1000007",
+    "snippet": "Missing message ID",
+    "payload": {
+      "mimeType": "text/plain",
+      "body": { "data": "VGVzdA==" }
+    }
+  },
+  "emptyObject": {},
+  "nullPayload": null,
+  "corruptedBase64": {
+    "id": "1894a8f9c1000007b",
+    "threadId": "1894a8f9c1000007b",
+    "payload": {
+      "mimeType": "text/plain",
+      "headers": [
+        { "name": "From", "value": "test@example.com" }
+      ],
+      "body": {
+        "data": "%%%NotValidBase64URL!!!"
+      }
+    }
+  }
+}
