@@ -85,11 +85,10 @@ export function SummaryCards({ counts, activeFilter, onSelectFilter }: SummaryCa
               key={card.id}
               type="button"
               onClick={() => onSelectFilter(card.filter)}
-              className={`group text-left relative p-5 rounded-xl border transition-all duration-200 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-100 ${
-                card.isActive
+              className={`group text-left relative p-5 rounded-xl border transition-all duration-200 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-100 ${card.isActive
                   ? "bg-zinc-100/90 dark:bg-zinc-900/90 border-zinc-900 dark:border-zinc-300 shadow-md ring-1 ring-zinc-900/10 dark:ring-zinc-300/20"
                   : `bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 hover:shadow-md ${card.accentBorder}`
-              }`}
+                }`}
             >
               <div className="flex items-center justify-between mb-3">
                 <span
@@ -114,9 +113,8 @@ export function SummaryCards({ counts, activeFilter, onSelectFilter }: SummaryCa
                   </div>
                 </div>
                 <ChevronRightIcon
-                  className={`w-4 h-4 text-zinc-400 transition-transform duration-200 group-hover:translate-x-1 ${
-                    card.isActive ? "text-zinc-900 dark:text-zinc-100" : ""
-                  }`}
+                  className={`w-4 h-4 text-zinc-400 transition-transform duration-200 group-hover:translate-x-1 ${card.isActive ? "text-zinc-900 dark:text-zinc-100" : ""
+                    }`}
                 />
               </div>
 
