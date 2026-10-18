@@ -86,8 +86,8 @@ export function SummaryCards({ counts, activeFilter, onSelectFilter }: SummaryCa
               type="button"
               onClick={() => onSelectFilter(card.filter)}
               className={`group text-left relative p-5 rounded-xl border transition-all duration-200 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-zinc-100 ${card.isActive
-                  ? "bg-zinc-100/90 dark:bg-zinc-900/90 border-zinc-900 dark:border-zinc-300 shadow-md ring-1 ring-zinc-900/10 dark:ring-zinc-300/20"
-                  : `bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 hover:shadow-md ${card.accentBorder}`
+                ? "bg-zinc-100/90 dark:bg-zinc-900/90 border-zinc-900 dark:border-zinc-300 shadow-md ring-1 ring-zinc-900/10 dark:ring-zinc-300/20"
+                : `bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 hover:shadow-md ${card.accentBorder}`
                 }`}
             >
               <div className="flex items-center justify-between mb-3">
