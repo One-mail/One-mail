@@ -32,6 +32,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# .env.example contains only placeholder values — safe to commit.
+!.env.example
 
 # vercel
 .vercel

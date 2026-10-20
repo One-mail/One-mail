@@ -1,31 +1,68 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { signIn } from "next-auth/react";
 import { cn } from "@/lib/utils";
 
 export interface GoogleSignInButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
+  /**
+   * Optional URL to redirect to after successful sign-in.
+   * Defaults to the root path ("/").
+   */
+  callbackUrl?: string;
 }
 
 /**
- * GoogleSignInButton - Prominent white authentication button featuring
- * the official Google "G" brand icon.
+ * GoogleSignInButton — Wired to Auth.js Google OAuth flow.
  *
- * Visual-only placeholder ready for OAuth wiring in subsequent tasks.
+ * Clicking this button initiates the official Auth.js `signIn("google")`
+ * flow, which:
+ *   1. Fetches a CSRF token from /api/auth/csrf.
+ *   2. Redirects the browser to /api/auth/signin/google.
+ *   3. Auth.js redirects to Google's consent page with the configured scopes.
+ *   4. On approval, Google redirects to /api/auth/callback/google.
+ *   5. Auth.js exchanges the code, persists User + Account via Prisma, sets
+ *      the session cookie, and redirects to `callbackUrl`.
+ *
+ * SECURITY: signIn() is the official Auth.js client entrypoint. It handles
+ * CSRF, state, and PKCE internally. No tokens are passed through this
+ * component. The button has no access to OAuth credentials or tokens.
+ *
+ * NOTE: Google may display an "unverified app" warning for gmail.readonly
+ * scope until the OAuth consent screen is submitted for verification.
+ * This is expected in development.
  */
 export function GoogleSignInButton({
   className,
   disabled,
-  onClick,
+  callbackUrl = "/",
   ...props
 }: GoogleSignInButtonProps) {
+  const [isPending, setIsPending] = useState(false);
+
+  const handleSignIn = async () => {
+    if (isPending) return;
+    setIsPending(true);
+    try {
+      // signIn redirects the browser — it never returns on success.
+      // On error, Auth.js redirects to the error page (generic message).
+      await signIn("google", { callbackUrl });
+    } catch {
+      // If an unexpected JS error occurs before the redirect, reset the
+      // loading state so the user can try again. Do not expose the error.
+      setIsPending(false);
+    }
+  };
+
   return (
     <button
       type="button"
-      disabled={disabled}
-      onClick={onClick}
-      aria-label="Continue with Google"
+      disabled={disabled || isPending}
+      onClick={handleSignIn}
+      aria-label={isPending ? "Signing in…" : "Continue with Google"}
+      aria-busy={isPending}
       className={cn(
         "group relative flex w-full items-center justify-center gap-3.5 rounded-xl border border-zinc-200/90 bg-white px-5 py-3.5 text-base font-medium text-zinc-900 shadow-sm transition-all duration-150",
         "hover:bg-zinc-50 hover:shadow-md hover:border-zinc-300",
@@ -60,7 +97,9 @@ export function GoogleSignInButton({
         />
       </svg>
 
-      <span className="tracking-tight text-zinc-900 font-medium">Continue with Google</span>
+      <span className="tracking-tight text-zinc-900 font-medium">
+        {isPending ? "Signing in…" : "Continue with Google"}
+      </span>
     </button>
   );
 }
