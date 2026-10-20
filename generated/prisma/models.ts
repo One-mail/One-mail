@@ -8,12 +8,12 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User'
-export type * from './models/Account'
-export type * from './models/Thread'
-export type * from './models/Email'
-export type * from './models/AIAnalysis'
-export type * from './models/Task'
-export type * from './models/Reminder'
-export type * from './models/SyncState'
-export type * from './commonInputTypes'
+export type * from './models/User.ts'
+export type * from './models/Account.ts'
+export type * from './models/Thread.ts'
+export type * from './models/Email.ts'
+export type * from './models/AIAnalysis.ts'
+export type * from './models/Task.ts'
+export type * from './models/Reminder.ts'
+export type * from './models/SyncState.ts'
+export type * from './commonInputTypes.ts'
