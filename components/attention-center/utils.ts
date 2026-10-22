@@ -1,9 +1,46 @@
-import { AttentionCategory, UrgencyLevel } from "./types";
+import type { AttentionCategory, UrgencyLevel } from "./types.ts";
+
+/**
+ * Standard locale used for deterministic date/time formatting across server (SSR) and client (hydration).
+ */
+export const DEFAULT_LOCALE = "en-US";
+
+/**
+ * Standard timezone used for deterministic date/time formatting across server (SSR) and client (hydration).
+ */
+export const DEFAULT_TIMEZONE = "UTC";
+
+/**
+ * Stable base anchor evaluated at module load time for deterministic initial countdown renders.
+ */
+export const INITIAL_BASE_TIME = new Date().getTime();
+
+export interface DateFormatOptions {
+  /**
+   * BCP 47 language tag (e.g., 'en-US'). Defaults to 'en-US' for deterministic SSR hydration.
+   */
+  locale?: string;
+  /**
+   * IANA time zone identifier (e.g., 'UTC', 'America/New_York'). Defaults to 'UTC'.
+   */
+  timeZone?: string;
+}
+
+export interface CountdownOptions extends DateFormatOptions {
+  /**
+   * Base date to calculate difference from. Defaults to `new Date()`.
+   * Useful for deterministic testing or stable SSR anchoring.
+   */
+  baseDate?: Date | string | number;
+}
 
 /**
  * Calculates a human-readable countdown or overdue status for a given target date.
  */
-export function formatCountdown(targetIsoDate: string | null | undefined): {
+export function formatCountdown(
+  targetIsoDate: string | null | undefined,
+  options?: CountdownOptions
+): {
   label: string;
   isOverdue: boolean;
   isUrgent: boolean;
@@ -28,7 +65,7 @@ export function formatCountdown(targetIsoDate: string | null | undefined): {
     };
   }
 
-  const now = new Date();
+  const now = options?.baseDate ? new Date(options.baseDate) : new Date();
   const diffMs = target.getTime() - now.getTime();
   const isOverdue = diffMs < 0;
   const absDiffMinutes = Math.floor(Math.abs(diffMs) / (1000 * 60));
@@ -81,7 +118,14 @@ export function formatCountdown(targetIsoDate: string | null | undefined): {
     };
   }
   if (absDiffDays === 1) {
-    const timeStr = target.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const locale = options?.locale ?? DEFAULT_LOCALE;
+    const timeZone = options?.timeZone ?? DEFAULT_TIMEZONE;
+    const timeStr = target.toLocaleTimeString(locale, {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      timeZone,
+    });
     return {
       label: `Tomorrow at ${timeStr}`,
       isOverdue: false,
@@ -101,38 +145,71 @@ export function formatCountdown(targetIsoDate: string | null | undefined): {
 /**
  * Formats full date and time for detail views.
  */
-export function formatFullDateTime(isoDate: string | null | undefined): string {
+export function formatFullDateTime(
+  isoDate: string | null | undefined,
+  options?: DateFormatOptions
+): string {
   if (!isoDate) return "Not specified";
   const d = new Date(isoDate);
   if (isNaN(d.getTime())) return "Invalid date";
-  return d.toLocaleString(undefined, {
+
+  const locale = options?.locale ?? DEFAULT_LOCALE;
+  const timeZone = options?.timeZone ?? DEFAULT_TIMEZONE;
+
+  return d.toLocaleString(locale, {
     weekday: "short",
     month: "short",
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
+    hour12: true,
+    timeZone,
   });
 }
 
 /**
  * Formats calendar event range.
  */
-export function formatEventSchedule(startIso?: string | null, endIso?: string | null): string {
+export function formatEventSchedule(
+  startIso?: string | null,
+  endIso?: string | null,
+  options?: DateFormatOptions
+): string {
   if (!startIso) return "Schedule pending";
   const start = new Date(startIso);
-  const startDateStr = start.toLocaleDateString(undefined, {
+  if (isNaN(start.getTime())) return "Invalid date";
+
+  const locale = options?.locale ?? DEFAULT_LOCALE;
+  const timeZone = options?.timeZone ?? DEFAULT_TIMEZONE;
+
+  const startDateStr = start.toLocaleDateString(locale, {
     weekday: "short",
     month: "short",
     day: "numeric",
+    timeZone,
   });
-  const startTimeStr = start.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  const startTimeStr = start.toLocaleTimeString(locale, {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+    timeZone,
+  });
 
   if (!endIso) {
     return `${startDateStr} at ${startTimeStr}`;
   }
 
   const end = new Date(endIso);
-  const endTimeStr = end.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  if (isNaN(end.getTime())) {
+    return `${startDateStr} at ${startTimeStr}`;
+  }
+
+  const endTimeStr = end.toLocaleTimeString(locale, {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+    timeZone,
+  });
   return `${startDateStr} • ${startTimeStr} – ${endTimeStr}`;
 }
 
@@ -191,3 +268,5 @@ export function getCategoryBadgeStyle(category: AttentionCategory): {
       return { bg: "bg-zinc-500/10 dark:bg-zinc-500/20", text: "text-zinc-700 dark:text-zinc-300" };
   }
 }
+
+export { useLiveCountdown } from "./useLiveCountdown.ts";
