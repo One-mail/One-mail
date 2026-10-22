@@ -14,15 +14,21 @@ import { ItemDetailDrawer } from "./ItemDetailDrawer";
 import { Navbar } from "./Navbar";
 import { SparklesIcon } from "./Icons";
 
-export function AttentionCenter() {
-  const [items, setItems] = useState<AttentionItem[]>(INITIAL_ATTENTION_ITEMS);
+export interface AttentionCenterProps {
+  initialItems?: AttentionItem[];
+}
+
+export function AttentionCenter({
+  initialItems = INITIAL_ATTENTION_ITEMS,
+}: AttentionCenterProps = {}) {
+  const [items, setItems] = useState<AttentionItem[]>(initialItems);
   const [activeFilter, setActiveFilter] = useState<FilterCategory>("ALL");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
 
-  // Reset to initial mock items
+  // Reset to initial items
   const handleResetData = () => {
-    setItems(INITIAL_ATTENTION_ITEMS);
+    setItems(initialItems);
     setSelectedItemId(null);
     setActiveFilter("ALL");
     setSearchQuery("");
@@ -149,93 +155,93 @@ export function AttentionCenter() {
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-black text-zinc-900 dark:text-zinc-50 flex flex-col font-sans">
-      {/* Navigation Header */}
-      <Navbar
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        onResetData={handleResetData}
-        activeCount={summaryCounts.needsAttention}
-      />
-
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-        {/* Product Promise Banner */}
-        <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="p-1 rounded bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900">
-                <SparklesIcon className="w-3.5 h-3.5" />
-              </span>
-              <h1 className="text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-                Attention Center
-              </h1>
-            </div>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400">
-              Your inbox tells you what happened. OneMail tells you what matters, what you need to do, and when you need to act.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2 text-[11px] text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-900 px-3 py-1.5 rounded-lg shrink-0">
-            <span className="font-semibold text-zinc-700 dark:text-zinc-300">Pipeline Flow:</span>
-            <span>Understand → Prioritize → Notify → Act → Remember</span>
-          </div>
-        </div>
-
-        {/* Dynamic Summary Cards */}
-        <SummaryCards
-          counts={summaryCounts}
-          activeFilter={activeFilter}
-          onSelectFilter={setActiveFilter}
+        {/* Navigation Header */}
+        <Navbar
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          onResetData={handleResetData}
+          activeCount={summaryCounts.needsAttention}
         />
 
-        {/* Section Heading & Filter Tabs */}
-        <div className="space-y-4 pt-2">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
-                Triaged Action Queue
-              </h2>
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
-                {filteredItems.length}
-              </span>
+        {/* Main Container */}
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+          {/* Product Promise Banner */}
+          <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="p-1 rounded bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900">
+                  <SparklesIcon className="w-3.5 h-3.5" />
+                </span>
+                <h1 className="text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+                  Attention Center
+                </h1>
+              </div>
+              <p className="text-xs text-zinc-600 dark:text-zinc-400">
+                Your inbox tells you what happened. OneMail tells you what matters, what you need to do, and when you need to act.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 text-[11px] text-zinc-500 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-900 px-3 py-1.5 rounded-lg shrink-0">
+              <span className="font-semibold text-zinc-700 dark:text-zinc-300">Pipeline Flow:</span>
+              <span>Understand → Prioritize → Notify → Act → Remember</span>
             </div>
           </div>
 
-          {/* Filter Tabs */}
-          <FilterTabs
+          {/* Dynamic Summary Cards */}
+          <SummaryCards
+            counts={summaryCounts}
             activeFilter={activeFilter}
             onSelectFilter={setActiveFilter}
-            filterCounts={filterCounts}
-            searchQuery={searchQuery}
-            onClearSearch={() => setSearchQuery("")}
           />
 
-          {/* Priority List */}
-          <PriorityList
-            items={filteredItems}
-            selectedId={selectedItemId}
-            onSelect={(item) => setSelectedItemId(item.id)}
-            onToggleComplete={handleToggleComplete}
-            onDismiss={handleDismiss}
-            isFiltered={activeFilter !== "ALL" || searchQuery.trim().length > 0}
-            onClearFilters={() => {
-              setActiveFilter("ALL");
-              setSearchQuery("");
-            }}
-            onResetData={handleResetData}
-          />
-        </div>
-      </main>
+          {/* Section Heading & Filter Tabs */}
+          <div className="space-y-4 pt-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
+                  Triaged Action Queue
+                </h2>
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+                  {filteredItems.length}
+                </span>
+              </div>
+            </div>
 
-      {/* Slide-out Detail Drawer */}
-      <ItemDetailDrawer
-        key={selectedItem?.id ?? "none"}
-        item={selectedItem}
-        onClose={() => setSelectedItemId(null)}
-        onToggleComplete={(id) => handleToggleComplete(id)}
-        onDismiss={(id) => handleDismiss(id)}
-        onToggleSubAction={handleToggleSubAction}
-      />
-    </div>
+            {/* Filter Tabs */}
+            <FilterTabs
+              activeFilter={activeFilter}
+              onSelectFilter={setActiveFilter}
+              filterCounts={filterCounts}
+              searchQuery={searchQuery}
+              onClearSearch={() => setSearchQuery("")}
+            />
+
+            {/* Priority List */}
+            <PriorityList
+              items={filteredItems}
+              selectedId={selectedItemId}
+              onSelect={(item) => setSelectedItemId(item.id)}
+              onToggleComplete={handleToggleComplete}
+              onDismiss={handleDismiss}
+              isFiltered={activeFilter !== "ALL" || searchQuery.trim().length > 0}
+              onClearFilters={() => {
+                setActiveFilter("ALL");
+                setSearchQuery("");
+              }}
+              onResetData={handleResetData}
+            />
+          </div>
+        </main>
+
+        {/* Slide-out Detail Drawer */}
+        <ItemDetailDrawer
+          key={selectedItem?.id ?? "none"}
+          item={selectedItem}
+          onClose={() => setSelectedItemId(null)}
+          onToggleComplete={(id) => handleToggleComplete(id)}
+          onDismiss={(id) => handleDismiss(id)}
+          onToggleSubAction={handleToggleSubAction}
+        />
+      </div>
   );
 }

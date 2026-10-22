@@ -1,10 +1,10 @@
 import React from "react";
 import { AttentionItem } from "./types";
 import {
-  formatCountdown,
   formatEventSchedule,
   getCategoryBadgeStyle,
   getUrgencyBadgeStyle,
+  useLiveCountdown,
 } from "./utils";
 import {
   AlertTriangleIcon,
@@ -33,7 +33,7 @@ export function PriorityCard({
 }: PriorityCardProps) {
   const categoryStyle = getCategoryBadgeStyle(item.category);
   const urgencyStyle = getUrgencyBadgeStyle(item.urgency);
-  const countdown = formatCountdown(item.deadline);
+  const countdown = useLiveCountdown(item.deadline);
 
   // Initials for avatar
   const initials = item.senderName

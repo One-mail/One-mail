@@ -1,7 +1,9 @@
 import { AttentionItem } from "./types";
+import { INITIAL_BASE_TIME } from "./utils";
 
-// Helper to create dates relative to now so mock countdowns remain active and realistic
-const now = new Date();
+// Helper to create dates relative to INITIAL_BASE_TIME so mock countdowns remain active, realistic, and hydration-stable
+const now = new Date(INITIAL_BASE_TIME);
+export { INITIAL_BASE_TIME };
 const addHours = (hours: number): string =>
   new Date(now.getTime() + hours * 60 * 60 * 1000).toISOString();
 const addDays = (days: number, hourOfDay = 14): string => {

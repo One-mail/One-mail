@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { AttentionItem } from "./types";
 import {
-  formatCountdown,
   formatEventSchedule,
   formatFullDateTime,
   getCategoryBadgeStyle,
   getUrgencyBadgeStyle,
+  useLiveCountdown,
 } from "./utils";
 import {
   CalendarIcon,
@@ -45,11 +45,11 @@ export function ItemDetailDrawer({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
 
-  if (!item) return null;
+  const categoryStyle = getCategoryBadgeStyle(item?.category ?? "General");
+  const urgencyStyle = getUrgencyBadgeStyle(item?.urgency ?? "NORMAL");
+  const countdown = useLiveCountdown(item?.deadline);
 
-  const categoryStyle = getCategoryBadgeStyle(item.category);
-  const urgencyStyle = getUrgencyBadgeStyle(item.urgency);
-  const countdown = formatCountdown(item.deadline);
+  if (!item) return null;
 
   const handleCopySummary = () => {
     navigator.clipboard?.writeText(item.fullSummary);

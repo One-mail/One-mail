@@ -15,7 +15,8 @@
  * process gets exactly one client for its lifetime.
  */
 
-import { PrismaClient } from "@/generated/prisma/client";
+import "dotenv/config";
+import { PrismaClient } from "../generated/prisma/client.ts";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 // ---------------------------------------------------------------------------
@@ -26,12 +27,9 @@ declare global {
 }
 
 function createPrismaClient(): PrismaClient {
-  const connectionString = process.env.DATABASE_URL;
-  if (!connectionString) {
-    throw new Error(
-      "[OneMail/prisma] DATABASE_URL environment variable is not set."
-    );
-  }
+  const connectionString =
+    process.env.DATABASE_URL ||
+    "postgresql://postgres:postgres@localhost:5432/postgres";
 
   const adapter = new PrismaPg({ connectionString });
 
@@ -45,6 +43,7 @@ function createPrismaClient(): PrismaClient {
         : ["error"],
   });
 }
+
 
 // ---------------------------------------------------------------------------
 // Export the singleton.

@@ -29,3 +29,22 @@ export class DecodeError extends GmailAdapterError {
     this.name = "DecodeError";
   }
 }
+
+export class GmailAuthError extends GmailAdapterError {
+  constructor(message: string, code = "GMAIL_AUTH_ERROR") {
+    super(message, code);
+    this.name = "GmailAuthError";
+  }
+}
+
+export class GmailApiError extends GmailAdapterError {
+  public readonly status: number;
+  public readonly details?: unknown;
+
+  constructor(message: string, status = 500, details?: unknown) {
+    super(message, "GMAIL_API_ERROR");
+    this.name = "GmailApiError";
+    this.status = status;
+    this.details = details;
+  }
+}
