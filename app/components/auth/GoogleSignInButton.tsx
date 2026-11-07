@@ -12,6 +12,15 @@ export interface GoogleSignInButtonProps
    * Defaults to the root path ("/").
    */
   callbackUrl?: string;
+  /**
+   * Optional custom button label text (e.g. "Get started with Google").
+   * Defaults to "Continue with Google".
+   */
+  label?: string;
+  /**
+   * Optional custom CSS class for the label span.
+   */
+  labelClassName?: string;
 }
 
 /**
@@ -38,6 +47,8 @@ export function GoogleSignInButton({
   className,
   disabled,
   callbackUrl = "/",
+  label = "Continue with Google",
+  labelClassName,
   ...props
 }: GoogleSignInButtonProps) {
   const [isPending, setIsPending] = useState(false);
@@ -61,13 +72,13 @@ export function GoogleSignInButton({
       type="button"
       disabled={disabled || isPending}
       onClick={handleSignIn}
-      aria-label={isPending ? "Signing in…" : "Continue with Google"}
+      aria-label={isPending ? "Signing in…" : label}
       aria-busy={isPending}
       className={cn(
-        "group relative flex w-full items-center justify-center gap-3.5 rounded-xl border border-zinc-200/90 bg-white px-5 py-3.5 text-base font-medium text-zinc-900 shadow-sm transition-all duration-150",
-        "hover:bg-zinc-50 hover:shadow-md hover:border-zinc-300",
-        "active:scale-[0.99] active:bg-zinc-100",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950",
+        "group relative flex w-full items-center justify-center gap-3.5 rounded-xl border border-[#e2b0bd]/30 bg-[#000000] px-5 py-3.5 text-base font-medium text-[#fcf8f7] shadow-sm transition-all duration-150",
+        "hover:bg-[#121212] hover:border-[#e2b0bd]/50 hover:shadow-[0_0_20px_rgba(226,176,189,0.18)]",
+        "active:scale-[0.99] active:bg-[#0a0a0a]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e2b0bd]/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#140810]",
         "disabled:cursor-not-allowed disabled:opacity-60",
         className
       )}
@@ -97,8 +108,8 @@ export function GoogleSignInButton({
         />
       </svg>
 
-      <span className="tracking-tight text-zinc-900 font-medium">
-        {isPending ? "Signing in…" : "Continue with Google"}
+      <span className={cn("tracking-tight font-medium", labelClassName ?? "text-zinc-900")}>
+        {isPending ? "Signing in…" : label}
       </span>
     </button>
   );
