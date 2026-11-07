@@ -1,8 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Ink:wght@100..900&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Playwrite+IT+Trad:wght@100..400&display=swap");
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #140910;
+  --foreground: #fcf8f7;
+
+  /* Reference-inspired palette tokens */
+  --color-mauve-deep: #2c1a27;
+  --color-dusty-rose: #b88696;
+  --color-rose-blush: #e2b0bd;
+  --color-oxblood: #160a11;
+  --color-oxblood-deep: #0f050b;
+  --color-earth-brown: #1a0f12;
+  --color-ivory: #fcf8f7;
+  --color-ivory-muted: #e8dbe0;
+  --color-amber: #e27d56;
+  --color-amber-hover: #f08e67;
+  --color-rose-border: rgba(226, 176, 189, 0.14);
 }
 
 @theme inline {
@@ -10,17 +24,37 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-bitcount: "Bitcount Ink", sans-serif;
+  --font-lobster: "Lobster Two", cursive;
+  --font-playwrite: "Playwrite IT Trad", cursive;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.font-bitcount {
+  font-family: "Bitcount Ink", sans-serif !important;
+}
+
+.font-lobster {
+  font-family: "Lobster Two", cursive !important;
+}
+
+.font-playwrite {
+  font-family: "Playwrite IT Trad", cursive !important;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Subtle smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
